@@ -107,4 +107,4 @@ function resultado(){
     }
 }
 
-alert ("Muchas gracias " + cliente + " por usar elegirnos");
+alert ("Muchas gracias " + cliente + " por elegirnos");
