@@ -60,7 +60,7 @@ function getEpoca (){
 
 function getTransaccion(){
     do{
-        transaccionOpcion = prompt ("Te recomendamos entonces\n"+ getPelicula()+ "\n¿Prefieres comprar o alquilar tu película?\n\nIngrese el Número de la opción\n\n1- Comprar\n2- Alquilar");
+        transaccionOpcion = prompt ("Te recomendamos entonces:\n\n"+ getPelicula()+ "\n\n¿Prefieres comprar o alquilar tu película?\n\nIngrese el Número de la opción\n\n1- Comprar\n2- Alquilar");
     } while (transaccionOpcion != 1 && transaccionOpcion !=2);
     if (transaccionOpcion == 1){
         return "compra";
@@ -95,8 +95,16 @@ function getPelicula(gen,epo){
     }
 }
 
-console.log (cliente)
-console.log (genero)
-console.log (epoca)
-console.log (pelicula)
-console.log (transaccion)
+resultado()
+
+function resultado(){
+    if (transaccion == "alquiler"){
+        let resultadoAlquiler = prompt ("El precio del alquiler es de $" + precioAlquiler + " por dia\n\n¿Cuantos dias queres alquilarla?");
+        resultadoAlquiler = resultadoAlquiler * precioAlquiler;
+        alert ("El precio final de tu alquiler es de $"+ resultadoAlquiler);
+    }else{
+        alert ("El precio de tu compra es de $" + precioCompra);
+    }
+}
+
+alert ("Muchas gracias " + cliente + " por usar elegirnos");
