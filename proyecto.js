@@ -1,44 +1,54 @@
-/* La idea del proyecto es armar un organizador automático de horarios para una empresa, el cual al colocar el nombre del empleado y su tipo de contrato arme una planilla con las horas en las que tiene que trabajar*/
+/* La idea del proyecto es armar un sitio donde se puedan comprar o alquilar peliculas, donde te tire una recomendacion y el monto a pagar en caso de q se compre o alquile y por cuantos dias se quiere alquilar variando asi el monto*/
 
-let cliente = prompt ("Bienvenido a nuestro servicio, cual es su nombre?");
+let accionClasico = "True Lies"
+let accionModerno = "Bullet Train"
+let animacionClasico = "The Road to El Dorado"
+let animacionModerno = "The Bad Guys"
+let comediaClasico = "Monty Python and the Holy Grail"
+let comediaModerno = "Game Night"
+let fantasiaClasico = "The Mummy"
+let fantasiaModerno = "Dune"
+let terrorClasico = "Peeping Tom" 
+let terrorModerno = "Black Phone" 
 
-let horarioApertura = parseInt ( prompt ("Cual es el horario de apertura de su local?\nUtilice formato de 24 horas, por ejemplo 09:00"));
-
-let horarioCierre = parseInt (prompt ("Cual es el horario de cierre de su local?\nUtilice formato de 24 horas, por ejemplo 21:00"));
-
-let empleado = prompt ("Ingrese el nombre del empleado");
-
-const partTime = 4;
-const fullTime = partTime * 2;
-
-function contra (){
+function getCliente (){
     do{
-        contrat = prompt( "Seleccione con el número correspondiente el tipo de contrato\n1- Full Time\n 2- Part Time");
-        } while (contrat != 1 && contrat != 2);
-        if (contrat == 1 ){
-        return contrat = fullTime
-    } else{
-        return contrat = partTime
+        nombre = prompt("Bienvenido a nuestro servicio, cual es su nombre?");
+        } while (nombre == null || nombre == "");
+        return nombre
+}
+
+let cliente = getCliente ()
+
+function getGenero (){
+    do{
+        generoOpcion = prompt("Hola " + cliente + " ¿que género de película te gustaría ver?\n\nIngrese el Número de la opción\n\n1- Acción\n2- Animación\n3- Comedia\n4- Fantasía\n5- Terror");
+    }while (generoOpcion !=1 && generoOpcion !=2 && generoOpcion !=3 && generoOpcion !=4 && generoOpcion !=5);
+    switch (generoOpcion){
+        case 1 : 
+            return "accion";
+        case 2 : 
+            return "animacion";
+        case 3 : 
+            return "comedia";
+        case 4 : 
+            return "fantasia";
+        case 5 : 
+            return "terror";
     }
-} 
+}
 
-let contrato = contra ()
+let genero = getGenero()
 
-if (horarioCierre <= horarioApertura){
-    horarioCierre = horarioCierre + 24
-}  /* con esta linea soluciono el problema que se presenta si el local cierra despues de las 00:00*/
+function getEpoca (){
+    do{
+        epocaOpcion = prompt ("¿De que época prefieres tu película?\n\nIngrese el Número de la opción\n\n1- Clásico\n2- Moderno");
+    } while (epocaOpcion != 1 && epocaOpcion !=2);
+    if (epocaOpcion == 1){
+        return "clasico";
+    } else{
+        return "moderno";
+    } 
+}
 
-let horario = horarioCierre - horarioApertura;
-
-console.log (contrato)
-console.log (fullTime)
-console.log (horario)
-
-
-
-
-
-
-alert ("Gracias " + cliente + " por elegirnos" );
-
-
+let epoca = getEpoca()
