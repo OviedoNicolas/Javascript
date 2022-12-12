@@ -1,25 +1,5 @@
 /* La idea del proyecto es armar un sitio donde se puedan organizar los horarios de los empleados de manera aleatoria al ingreasar que tipo de contrato tienen.
-Mas abajo dejo algunas aclaraciones de partes que no puedo ejcutar de manera eficiente*/
-
-let cliente = getCliente();
-const empleados = []
-const partTime = 4;
-const fullTime = partTime * 2;
-let horario = getHorario ()
-let turnos = Math.ceil(horario / 4);
-
-class Empleado {
-    constructor (nombre, apellido, contrato, turno1, turno2){
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.contrato = contrato;
-        this.turno1 = turno1;
-        this.turno2 = turno2;
-    }
-}
-
-getEmpleado ()
-asignarTurno()
+Mas abajo dejo algunas aclaraciones de partes que no puedo ejcutar de manera eficiente porque los datos se ingresan por prompt*/
 
 function getCliente (){
     let nombre;
@@ -36,7 +16,7 @@ function getEmpleadoNombre (){
     } while (nombre == null || nombre == "");
     return nombre;
     }
-
+    
 function getEmpleadoApellido (){
     let apellido;
     do{
@@ -70,7 +50,6 @@ function getAgregar (){
         getEmpleado ();
     }
 }
-
 /* En esta parte al tener que ingresar la hora por prompt se me limita poder convertirlo en horas, la idea es ingresar ese dato por un input tipo time en el html, por lo que se generan cierto problemas como la posibilidad de escribir un string y el resultado de la cuenta sea NaN*/
 function getHorario () {
     let horarioApertura = parseInt ( prompt ("Cual es el horario de apertura de su local?\nUtilice formato de 24 horas, por ejemplo 09:00"));
@@ -96,6 +75,26 @@ function asignarTurno () {
         }
     }
 }
+
+let cliente = getCliente();
+const empleados = []
+const partTime = 4;
+const fullTime = partTime * 2;
+let horario = getHorario ()
+let turnos = Math.ceil(horario / 4);
+
+class Empleado {
+    constructor (nombre, apellido, contrato, turno1, turno2){
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.contrato = contrato;
+        this.turno1 = turno1;
+        this.turno2 = turno2;
+    }
+}
+
+getEmpleado ()
+asignarTurno()
 
 for (const empleado of empleados){
     if (empleado.contrato == fullTime){
