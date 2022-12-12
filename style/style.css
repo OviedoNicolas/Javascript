@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow&family=Montserrat:wght@100;300;800&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    box-sizing: border-box;
+}
+
+.formulario{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    background: linear-gradient(143deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 40%, rgba(0,50,126,1) 58%, rgba(0,212,255,1) 100%);
+    color: #ffffff;
+    gap: 10px;
+    font-size: 21px;
+}
+
+.form__in{
+    width: 300px;
+    font-size: 15px;
+}
+
+.contratoInput{
+    margin-top: 20px;
+}

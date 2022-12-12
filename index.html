@@ -4,12 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso Javascript</title>
+    <title>OrgWork</title>
+    <link rel="stylesheet" href="./style/style.css">
 </head>
 <body>
     <h1>Curso Javascript</h1>
-    <h2>Primera pre-entrega</h2>
+    <h2>Segunda pre-entrega</h2>
     <h2>Oviedo Nicolas</h2>
-    <script src="./proyecto.js"></script>
+    <div class="formulario" class="mx-auto">
+        <input class="form__in" type="text" value="Ingrese el nombre de su empresa">
+        <div class="formEmpleado">
+            <input class="form__in" type="text" value="Ingrese el nombre de su empleado">
+            <input class="form__in" type="text" value="Ingrese el apellido de su empleado">
+            <form class="contratoInput">
+                <label for="lang">Tipo de contrato</label>
+                <select name="lenguajes">
+                    <option value="fullTime">Full Time</option>
+                    <option value="partTime">Part Time</option>
+                </select>
+                <input type="submit" value="Agregar">
+            </form>
+        </div>
+        <div>
+            <p>Ingrese el horario de apertura de su local</p>
+            <input type="time">
+            <p>Ingrese el horario de cierre de su local</p>
+            <input type="time">
+        </div>
+    </div>
+    <script src="./script/main.js"></script>
 </body>
 </html>
