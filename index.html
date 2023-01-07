@@ -6,32 +6,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OrgWork</title>
     <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 <body>
-    <h1>Curso Javascript</h1>
-    <h2>Segunda pre-entrega</h2>
-    <h2>Oviedo Nicolas</h2>
-    <div class="formulario" class="mx-auto">
-        <input class="form__in" type="text" value="Ingrese el nombre de su empresa">
-        <div class="formEmpleado">
-            <input class="form__in" type="text" value="Ingrese el nombre de su empleado">
-            <input class="form__in" type="text" value="Ingrese el apellido de su empleado">
-            <form class="contratoInput">
-                <label for="lang">Tipo de contrato</label>
-                <select name="lenguajes">
-                    <option value="fullTime">Full Time</option>
-                    <option value="partTime">Part Time</option>
+    <header>
+        <h1>Logo</h1>
+        <nav>
+            <ul class="navbar">
+                <li class="navbar-link">
+                    <a href="./index.html">Home</a>
+                </li>
+                <li class="navbar-link">
+                    <a href="./Section/productos.html">Productos</a>
+                </li>
+                <li class="navbar-link">
+                    <a href="./Section/clientes.html">Clientes</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="agregar-container">
+            <form class="agregar agregar-cliente">
+                <h2>Agregar Cliente</h2>
+                <select id="prueba">
+                    <option>Seleccione un cliente</option>
+                    <option value="Carlos">Nico</option>
+                    <option value="Carlos">Nico</option>
                 </select>
-                <input type="submit" value="Agregar">
+                <button>Listo</button>
             </form>
-        </div>
-        <div>
-            <p>Ingrese el horario de apertura de su local</p>
-            <input type="time">
-            <p>Ingrese el horario de cierre de su local</p>
-            <input type="time">
-        </div>
-    </div>
+            <form class="agregar agregar-producto">
+                <h2>Agregar Producto</h2>
+                <select id="">
+                    <option>Seleccione un Producto</option>
+                    <option value="Mate">Mate</option>
+                    <option value="Bombilla">Bombilla</option>
+                </select>
+                <button>Agregar</button>
+                <button><i class="bi bi-check-circle-fill"></i></button>
+            </form>
+        </section>
+        <section class="ventas-container">
+            <div class="ventas-resumen">
+                <div>
+                    <h3>Cliente</h3>
+                    <p>Juan Carlos</p>
+                </div>
+                <div>
+                    <h3>Dirección</h3>
+                    <p>Av. Carcano 2639</p>
+                </div>
+                <div>
+                    <h3>Teléfono</h3>
+                    <p>3541-379065</p>
+                </div>
+                <div>
+                    <h3>Producto</h3>
+                    <p>Mate Imperial</p>
+                    <p>Bombilla</p>
+                </div>
+                <div>
+                    <h3>Cantidad</h3>
+                    <p>3</p>
+                    <p>1</p>
+                </div>
+                <div>
+                    <h3>Total</h3>
+                    <p>$6000</p>
+                    <p>$1000</p>
+                </div>
+            </div>
+            <div class="ventas-resumen">
+                <div>
+                    <h3>Cliente</h3>
+                    <p>Juan Carlos</p>
+                </div>
+                <div>
+                    <h3>Dirección</h3>
+                    <p>Av. Carcano 2639</p>
+                </div>
+                <div>
+                    <h3>Teléfono</h3>
+                    <p>3541-379065</p>
+                </div>
+                <div>
+                    <h3>Producto</h3>
+                    <p>Mate Imperial</p>
+                </div>
+                <div>
+                    <h3>Cantidad</h3>
+                    <p>3</p>
+                </div>
+                <div>
+                    <h3>Total</h3>
+                    <p>$6000</p>
+                </div>
+            </div>
+            <div class="ventas-resumen">
+                <div>
+                    <h3>Cliente</h3>
+                    <p>Juan Carlos</p>
+                </div>
+                <div>
+                    <h3>Dirección</h3>
+                    <p>Av. Carcano 2639</p>
+                </div>
+                <div>
+                    <h3>Teléfono</h3>
+                    <p>3541-379065</p>
+                </div>
+                <div>
+                    <h3>Producto</h3>
+                    <p>Mate Imperial</p>
+                </div>
+                <div>
+                    <h3>Cantidad</h3>
+                    <p>3</p>
+                </div>
+                <div>
+                    <h3>Total</h3>
+                    <p>$6000</p>
+                </div>
+            </div>
+            <button>Entregado</button>
+            <button>Eliminar</button>
+        </section>
+    </main>
+    <footer>
+        <p>©Nicolas Oviedo 2023</p>
+    </footer>
     <script src="./script/main.js"></script>
 </body>
 </html>

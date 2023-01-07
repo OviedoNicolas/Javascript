@@ -1,27 +1,141 @@
-@import url("https://fonts.googleapis.com/css2?family=Barlow&family=Montserrat:wght@100;300;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Kalam&family=Space+Mono&display=swap');
 
 * {
-    padding: 0;
     margin: 0;
-    font-family: "Montserrat", sans-serif;
+    padding: 0;
     box-sizing: border-box;
+    font-family: "Space Mono", sans-serif;
 }
 
-.formulario{
+body {
+    background-color: lightpink;
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    background: linear-gradient(143deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 40%, rgba(0,50,126,1) 58%, rgba(0,212,255,1) 100%);
-    color: #ffffff;
-    gap: 10px;
-    font-size: 21px;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.form__in{
-    width: 300px;
-    font-size: 15px;
+header{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    width: 1240px;
+    margin-inline: auto;
+    background: linear-gradient(180deg, rgba(255,236,122,1) 0%, rgba(255,236,122,1) 15%, rgba(205,205,205,1) 15%, rgba(205,205,205,1) 16%, rgba(255,236,122,1) 16%, rgba(255,236,122,1) 30%, rgba(205,205,205,1) 30%, rgba(205,205,205,1) 31%, rgba(255,236,122,1) 31%, rgba(255,236,122,1) 60%, rgba(205,205,205,1) 60%, rgba(205,205,205,1) 61%, rgba(255,236,122,1) 61%, rgba(255,236,122,1) 75%, rgba(205,205,205,1) 75%, rgba(205,205,205,1) 76%, rgba(255,236,122,1) 76%, rgba(255,236,122,1) 90%, rgba(205,205,205,1) 90%, rgba(205,205,205,1) 91%, rgba(255,236,122,1) 91%, rgba(255,236,122,1) 100%);
+    border-radius: .25rem;
+    box-shadow: 10px 10px 10px #00000061;
+    margin-top: 1rem;
 }
 
-.contratoInput{
-    margin-top: 20px;
+ul,li {
+    list-style-type: none;
 }
+
+a {
+    text-decoration: none;
+    color: #484848;
+    position: relative;
+}
+
+a:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background: #484848;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform 0.2s ease-in-out;
+}
+
+a:hover:after {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+input {
+    background-color: rgb(255, 246, 193) ;
+    border: none;
+    border-radius: 1rem;
+}
+
+p {
+    font-family: "Kalam", sans-serif;
+    color: #484848;
+}
+
+main {
+    margin-top: 3rem;
+    margin-inline: auto;
+    width: 1240px;
+}
+
+footer {
+    width: 1240px;
+    margin-inline: auto;
+    margin-bottom: 0px;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    background: linear-gradient(180deg, rgba(255,236,122,1) 0%, rgba(255,236,122,1) 15%, rgba(205,205,205,1) 15%, rgba(205,205,205,1) 16%, rgba(255,236,122,1) 16%, rgba(255,236,122,1) 30%, rgba(205,205,205,1) 30%, rgba(205,205,205,1) 31%, rgba(255,236,122,1) 31%, rgba(255,236,122,1) 60%, rgba(205,205,205,1) 60%, rgba(205,205,205,1) 61%, rgba(255,236,122,1) 61%, rgba(255,236,122,1) 75%, rgba(205,205,205,1) 75%, rgba(205,205,205,1) 76%, rgba(255,236,122,1) 76%, rgba(255,236,122,1) 90%, rgba(205,205,205,1) 90%, rgba(205,205,205,1) 91%, rgba(255,236,122,1) 91%, rgba(255,236,122,1) 100%);
+}
+
+.navbar{
+    display: flex;
+    gap: 30px;
+    padding: 1rem;
+}
+
+.navbar-link {
+    font-size: 1.25rem;
+    color: #484848;
+}
+
+.agregar-container {
+    display: flex;
+    gap: 2rem;
+}
+
+.agregar {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 100%;
+    padding: 1.75rem;
+    gap: 1rem;
+    box-shadow: 8px 15px 10px #00000061;
+    background: rgba(255,236,122,1);
+    overflow: hidden;
+    position: relative;
+}
+
+.agregar::before{
+    border-color: lightpink rgb(253, 222, 43) rgb(253, 222, 43) lightpink ;
+    border-style: solid;
+    border-width: 0 0 30px 30px;
+    box-shadow: 3px 3px 10px #00000061;
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+}
+
+.ventas-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    background: linear-gradient(180deg, rgba(255,236,122,1) 0%, rgba(255,236,122,1) 15%, rgba(205,205,205,1) 15%, rgba(205,205,205,1) 16%, rgba(255,236,122,1) 16%, rgba(255,236,122,1) 30%, rgba(205,205,205,1) 30%, rgba(205,205,205,1) 31%, rgba(255,236,122,1) 31%, rgba(255,236,122,1) 60%, rgba(205,205,205,1) 60%, rgba(205,205,205,1) 61%, rgba(255,236,122,1) 61%, rgba(255,236,122,1) 75%, rgba(205,205,205,1) 75%, rgba(205,205,205,1) 76%, rgba(255,236,122,1) 76%, rgba(255,236,122,1) 90%, rgba(205,205,205,1) 90%, rgba(205,205,205,1) 91%, rgba(255,236,122,1) 91%, rgba(255,236,122,1) 100%);
+}
+
+.ventas-resumen {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+
