@@ -55,7 +55,7 @@ a:hover:after {
     transform: scaleX(1);
 }
 
-input {
+input, select {
     background-color: rgb(255, 246, 193) ;
     border: none;
     border-radius: 1rem;
