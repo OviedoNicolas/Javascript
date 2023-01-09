@@ -59,6 +59,14 @@ function cargarCliente (){
     crearBotonesEliminarCliente ();
 };
 
+function validarFormularioClientes () {
+    if (getClienteNombre.value == "" || getClienteDireccion.value == ""||getClienteTelefono.value == "" ){
+        alert("Debes completar todos los campos que tengan (*)")
+    } else {
+        cargarCliente ()
+    }
+}
+
 function eliminarCliente (e){
     const botonClienteEliminar = e.currentTarget.id;
     const clienteAEliminar = clientes.findIndex (cliente => cliente.id == botonClienteEliminar);
@@ -70,7 +78,7 @@ function eliminarCliente (e){
 
 getClienteAceptar.addEventListener ("click", () => {
     crearCliente ();
-    cargarCliente ();
+    validarFormularioClientes ();
 })
 
 /* Flujo del programa*/

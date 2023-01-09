@@ -31,7 +31,7 @@ function actualizarProductos (){
 }
 
 function crearProducto(){
-    productos.push (new Producto(getProductoNombre.value, getProductoPrecio.value, getProductoPrecio.value, Math.random()))
+    productos.push (new Producto(getProductoNombre.value, Number(getProductoPrecio.value),Number(getProductoStock.value), Math.random()))
 };
 
 function crearBotonesEliminarProducto () {
@@ -57,6 +57,14 @@ function cargarProducto (){
     crearBotonesEliminarProducto ();
 };
 
+function validarFormularioProductos () {
+    if (getProductoNombre.value == "" || getProductoPrecio.value == ""){
+        alert("Debes completar todos los campos que tengan (*)")
+    } else {
+        cargarProducto ()
+    }
+}
+
 function eliminarProducto (e){
     const botonProductoEliminar = e.currentTarget.id;
     const productoAEliminar = productos.findIndex (producto => producto.id == botonProductoEliminar);
@@ -68,7 +76,7 @@ function eliminarProducto (e){
 
 getProductoAceptar.addEventListener ("click", () => {
     crearProducto ();
-    cargarProducto ();
+    validarFormularioProductos ();
 })
 
 actualizarProductos ();

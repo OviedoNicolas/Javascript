@@ -55,7 +55,7 @@ a:hover:after {
     transform: scaleX(1);
 }
 
-input, select {
+input, select, button {
     background-color: rgb(255, 246, 193) ;
     border: none;
     border-radius: 1rem;
@@ -137,5 +137,6 @@ footer {
     justify-content: space-between;
     padding: 1rem;
 }
+
 
 
