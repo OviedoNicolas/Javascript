@@ -20,6 +20,7 @@ class Cliente {
         this.direccion = direccion;
         this.telefono = telefono;
         this.id = id;
+        this.nombreCompleto = nombre + " " + apellido;
     }
 }
 
@@ -43,17 +44,22 @@ function crearBotonesEliminarCliente () {
 }
 
 function cargarCliente (){
-    clientesContainer.innerHTML = ""
+    clientesContainer.innerHTML = "";
     clientes.forEach(cliente => {
         let div = document.createElement ("div");
+        div.classList.add ("post")
         div.innerHTML = `                
-            <p>${cliente.nombre}</p>
-            <p>${cliente.apellido}</p>
+            <p>${cliente.nombreCompleto}</p>
             <p>${cliente.direccion}</p>
             <p>${cliente.telefono}</p>
+            <div class="pin">
+                <div class="shadow"></div>
+                <div class="metal"></div>
+                <div class="bottom-circle"></div>
+            </div>
             <button class="botonEliminar" id="${cliente.id}">Eliminar</button>
         `;
-        clientesContainer.append (div)
+        clientesContainer.append (div);
     })
     localStorage.setItem ("listaClientes", JSON.stringify(clientes));
     crearBotonesEliminarCliente ();
@@ -61,9 +67,9 @@ function cargarCliente (){
 
 function validarFormularioClientes () {
     if (getClienteNombre.value == "" || getClienteDireccion.value == ""||getClienteTelefono.value == "" ){
-        alert("Debes completar todos los campos que tengan (*)")
+        alert("Debes completar todos los campos que tengan (*)");
     } else {
-        cargarCliente ()
+        cargarCliente ();
     }
 }
 
@@ -76,7 +82,7 @@ function eliminarCliente (e){
 
 /* Eventos */
 
-getClienteAceptar.addEventListener ("click", () => {
+getClienteAceptar.addEventListener ("click", (e) => {
     crearCliente ();
     validarFormularioClientes ();
 })

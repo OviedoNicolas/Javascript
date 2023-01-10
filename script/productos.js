@@ -26,7 +26,7 @@ function actualizarProductos (){
     if (productosAlmacenados) {
         productos = productosAlmacenados;
     } else {
-        productos = []
+        productos = [];
     }
 }
 
@@ -42,26 +42,32 @@ function crearBotonesEliminarProducto () {
 }
 
 function cargarProducto (){
-    productosContainer.innerHTML = ""
+    productosContainer.innerHTML = "";
     productos.forEach(producto => {
         let div = document.createElement ("div");
+        div.classList.add ("post")
         div.innerHTML = `                
             <p>${producto.nombre}</p>
             <p>$${producto.precio}</p>
             <p>${producto.stock}</p>
+            <div class="pin">
+                <div class="shadow"></div>
+                <div class="metal"></div>
+                <div class="bottom-circle"></div>
+            </div>
             <button class="botonEliminar" id="${producto.id}">Eliminar</button>
         `;
-        productosContainer.append (div)
+        productosContainer.append (div);
     })
-    localStorage.setItem ("listaProductos", JSON.stringify(productos))
+    localStorage.setItem ("listaProductos", JSON.stringify(productos));
     crearBotonesEliminarProducto ();
 };
 
 function validarFormularioProductos () {
     if (getProductoNombre.value == "" || getProductoPrecio.value == ""){
-        alert("Debes completar todos los campos que tengan (*)")
+        alert("Debes completar todos los campos que tengan (*)");
     } else {
-        cargarProducto ()
+        cargarProducto ();
     }
 }
 
