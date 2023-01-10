@@ -1,4 +1,4 @@
-
+// La idea de este proyecto es armar una aplicacion para los vendedores autonomos que hacen la entrega ellos mismos, para ello tiene un seccion cliente donde se pueden crear los clientes y una de productos con el mismo fin, teniendo un seccion principal donde se puedan armar los pedidos relacionando ambas informaciones
 
 const productosAlmacenados = JSON.parse(localStorage.getItem("listaProductos"));
 const clientesAlmacenados = JSON.parse(localStorage.getItem("listaClientes"));
