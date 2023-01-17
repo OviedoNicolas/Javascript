@@ -3,6 +3,7 @@ let clientes;
 const clientesAlmacenados = JSON.parse(localStorage.getItem("listaClientes"));
 
 /* Elementos traidos desde el html      ``  */ 
+const agregarClienteForm = document.querySelector ("#agregar-cliente");
 const clientesContainer = document.querySelector ("#clientes-container");
 const getClienteNombre = document.querySelector ("#get-nombre");
 const getClienteApellido = document.querySelector ("#get-apellido");
@@ -25,11 +26,7 @@ class Cliente {
 }
 
 function actualizarClientes (){
-    if (clientesAlmacenados) {
-        clientes = clientesAlmacenados;
-    } else {
-        clientes = [];
-    }
+    clientesAlmacenados ? clientes = clientesAlmacenados : clientes = [];
 }
 
 function crearCliente(){
@@ -67,11 +64,27 @@ function cargarCliente (){
 
 function validarFormularioClientes () {
     if (getClienteNombre.value == "" || getClienteDireccion.value == ""||getClienteTelefono.value == "" ){
-        alert("Debes completar todos los campos que tengan (*)");
+        Swal.fire({
+            icon: 'error',
+            title: 'Daaaaale...',
+            text: 'No ves q tenes q poner los datos???...bobo!',
+            footer: '<a href="">Why do I have this issue?</a>'
+        });
     } else {
-        cargarCliente ();
-    }
-}
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1200
+        });
+        setTimeout( ()=>{
+            crearCliente ();
+            cargarCliente ();
+            agregarClienteForm.reset()
+        }, 900);
+    };
+};
 
 function eliminarCliente (e){
     const botonClienteEliminar = e.currentTarget.id;
@@ -83,9 +96,9 @@ function eliminarCliente (e){
 /* Eventos */
 
 getClienteAceptar.addEventListener ("click", (e) => {
-    crearCliente ();
+    e.preventDefault();
     validarFormularioClientes ();
-})
+});
 
 /* Flujo del programa*/
 

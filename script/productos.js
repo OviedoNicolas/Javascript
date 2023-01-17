@@ -3,10 +3,10 @@ let productos;
 const productosAlmacenados = JSON.parse(localStorage.getItem("listaProductos"));
 
 /* Elementos traidos desde el html      ``  */ 
+const agregarProductoForm = document.querySelector ("#agregar-producto");
 const productosContainer = document.querySelector ("#productos-container");
 const getProductoNombre = document.querySelector ("#get-producto");
 const getProductoPrecio = document.querySelector ("#get-precio");
-const getProductoStock = document.querySelector ("#get-stock");
 const getProductoAceptar = document.querySelector ("#producto-aceptar");
 let botonesEliminarCliente = document.querySelectorAll (".botonEliminar");
 
@@ -14,24 +14,19 @@ let botonesEliminarCliente = document.querySelectorAll (".botonEliminar");
 /* Funciones*/
 
 class Producto {
-    constructor (nombre, precio, stock,id){
+    constructor (nombre, precio, id){
         this.nombre = nombre;
         this.precio = precio;
-        this.stock = stock;
         this.id = id;
     }
 }
 
 function actualizarProductos (){
-    if (productosAlmacenados) {
-        productos = productosAlmacenados;
-    } else {
-        productos = [];
-    }
+    productosAlmacenados ? productos = productosAlmacenados : productos = [];
 }
 
 function crearProducto(){
-    productos.push (new Producto(getProductoNombre.value, Number(getProductoPrecio.value),Number(getProductoStock.value), Math.random()))
+    productos.push (new Producto(getProductoNombre.value, Number(getProductoPrecio.value), Math.random()))
 };
 
 function crearBotonesEliminarProducto () {
@@ -49,7 +44,6 @@ function cargarProducto (){
         div.innerHTML = `                
             <p>${producto.nombre}</p>
             <p>$${producto.precio}</p>
-            <p>${producto.stock}</p>
             <div class="pin">
                 <div class="shadow"></div>
                 <div class="metal"></div>
@@ -65,11 +59,26 @@ function cargarProducto (){
 
 function validarFormularioProductos () {
     if (getProductoNombre.value == "" || getProductoPrecio.value == ""){
-        alert("Debes completar todos los campos que tengan (*)");
+        Swal.fire({
+            icon: 'error',
+            title: 'Daaaaale...',
+            text: 'No ves q tenes q poner los datos???...bobo!',
+        });
     } else {
-        cargarProducto ();
-    }
-}
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1200
+        });
+        setTimeout( ()=>{
+            crearProducto ();            
+            cargarProducto ();
+            agregarProductoForm.reset()
+        }, 900);
+    };
+};
 
 function eliminarProducto (e){
     const botonProductoEliminar = e.currentTarget.id;
@@ -80,10 +89,10 @@ function eliminarProducto (e){
 
 /* Eventos */
 
-getProductoAceptar.addEventListener ("click", () => {
-    crearProducto ();
+getProductoAceptar.addEventListener ("click", (e) => {
+    e.preventDefault();
     validarFormularioProductos ();
-})
+});
 
 actualizarProductos ();
 cargarProducto ();

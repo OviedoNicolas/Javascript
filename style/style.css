@@ -9,6 +9,7 @@
 
 body {
     background-color: #ab5663;
+    /* background-image: url(../garabatos-patrones-infantiles-fisuras_95169-848.webp); */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -123,6 +124,7 @@ footer {
     top: 0;
     width: 0;
 }
+
 
 .ventas-resumen{
     padding: 1.5rem;
