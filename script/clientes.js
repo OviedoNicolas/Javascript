@@ -54,7 +54,7 @@ function cargarCliente (){
                 <div class="metal"></div>
                 <div class="bottom-circle"></div>
             </div>
-            <button class="botonEliminar" id="${cliente.id}">Eliminar</button>
+            <button class="botonEliminar" id="${cliente.id}"><img src="/images/x-circle.svg" alt="boton eliminar"></button>
         `;
         clientesContainer.append (div);
     })

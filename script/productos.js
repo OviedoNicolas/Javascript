@@ -49,7 +49,7 @@ function cargarProducto (){
                 <div class="metal"></div>
                 <div class="bottom-circle"></div>
             </div>
-            <button class="botonEliminar" id="${producto.id}">Eliminar</button>
+            <button class="botonEliminar" id="${producto.id}"><img src="/images/x-circle.svg" alt="boton eliminar"></button>
         `;
         productosContainer.append (div);
     })

@@ -198,7 +198,7 @@ function cargarVenta (){
             <h3>Total</h3>
             ${total.reduce((a, b) => a + b)}
         </div>
-        <button class="botonEliminar" id="${venta.id}">Eliminar</button>
+        <button class="botonEliminar" id="${venta.id}"><img src="/images/x-circle.svg" alt="boton eliminar"></button>
         `;
         resumenContainer.append (impresion);
     })
@@ -262,25 +262,25 @@ window.addEventListener('load', ()=> {
                             iconoAnimado.src='animated/thunder.svg'
                             break;
                         case 'Drizzle':
-                            iconoAnimado.src='animated/rainy-2.svg'
+                            iconoAnimado.src='images/rainy-2.svg'
                             break;
                         case 'Rain':
-                            iconoAnimado.src='animated/rainy-7.svg'
+                            iconoAnimado.src='images/rainy-7.svg'
                             break;
                         case 'Snow':
-                            iconoAnimado.src='animated/snowy-6.svg'
+                            iconoAnimado.src='images/snowy-6.svg'
                             break;                        
                         case 'Clear':
-                            iconoAnimado.src='animated/day.svg'
+                            iconoAnimado.src='images/day.svg'
                             break;
                         case 'Atmosphere':
-                            iconoAnimado.src='animated/weather.svg'
+                            iconoAnimado.src='images/weather.svg'
                             break;  
                         case 'Clouds':
-                            iconoAnimado.src='animated/cloudy-day-1.svg'
+                            iconoAnimado.src='images/cloudy-day-1.svg'
                             break;  
                         default:
-                            iconoAnimado.src='animated/cloudy-day-1.svg'
+                            iconoAnimado.src='images/cloudy-day-1.svg'
                     }
                 }
             })
