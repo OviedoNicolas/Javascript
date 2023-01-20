@@ -66,19 +66,18 @@ function validarFormularioClientes () {
     if (getClienteNombre.value == "" || getClienteDireccion.value == ""||getClienteTelefono.value == "" ){
         Swal.fire({
             icon: 'error',
-            title: 'Daaaaale...',
-            text: 'No ves q tenes q poner los datos???...bobo!',
-            footer: '<a href="">Why do I have this issue?</a>'
+            title: 'Por favor',
+            text: 'Completá todos los campos que tengan (*)',
         });
     } else {
         Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Your work has been saved',
+            text: 'Cliente creado correctamente',
             showConfirmButton: false,
             timer: 1200
         });
-        setTimeout( ()=>{
+        setTimeout( () => {
             crearCliente ();
             cargarCliente ();
             agregarClienteForm.reset()
@@ -89,8 +88,17 @@ function validarFormularioClientes () {
 function eliminarCliente (e){
     const botonClienteEliminar = e.currentTarget.id;
     const clienteAEliminar = clientes.findIndex (cliente => cliente.id == botonClienteEliminar);
-    clientes.splice(clienteAEliminar, 1);
-    cargarCliente ();
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        text: 'Cliente eliminado correctamente',
+        showConfirmButton: false,
+        timer: 1200
+    });
+    setTimeout( ()=>{
+        clientes.splice(clienteAEliminar, 1);
+        cargarCliente ();
+    }, 900);
 }
 
 /* Eventos */

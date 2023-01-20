@@ -1,3 +1,4 @@
+let nombreUsuario = JSON.parse(localStorage.getItem("usuario"));
 let ventas;
 const ventasAlmacenadas = JSON.parse(localStorage.getItem("ventas"));
 /* Arrays traidos desde el LocalStorage*/
@@ -14,6 +15,7 @@ const botonAceptar = document.querySelector ("#boton-aceptar");
 const resumenContainer = document.querySelector ("#ventas-impresion");
 const resumenProducto = document.querySelector (".ventas-resumen-productos");
 const resumenCliente = document.querySelector (".ventas-resumen-cliente");
+const mensajeContainer = document.querySelector ("#mensaje");
 
 class Venta {
     constructor (id, cliente, producto){
@@ -24,6 +26,54 @@ class Venta {
 };
 
 /*  Funciones    */
+function getUsuario () {
+    (async () => {
+        const { value: nombre } = await Swal.fire({
+            title: 'Ingrese su nombre de Usuario',
+            input: 'text',
+            inputPlaceholder: 'Nombre',
+            allowOutsideClick : false,
+            allowEscapeKey : false,
+            inputValidator: (value) => {
+                return new Promise((resolve) => {
+                    if (value === "") {
+                    resolve('Tenes que ingresar un nombre')
+                    } else {
+                    resolve()
+                    }
+                })
+            }
+        });
+        if(nombre){
+            Swal.fire(`Hola ${nombre} te damos la bienvenida!!!`)
+        }
+        localStorage.setItem ("usuario", JSON.stringify(nombre));
+        mensajeInicio(nombre)
+    })();
+};
+
+function iniciarPagina (){
+    nombreUsuario ? mensajeInicio(nombreUsuario) : getUsuario ();
+}
+
+function mensajeInicio (usuario) {
+    mensajeContainer.innerHTML = ""
+    let mensaje = document.createElement ("p")
+    if (productosAlmacenados.length == 0 && clientesAlmacenados.length == 0){
+        mensaje.innerHTML = `
+        <p>${usuario} todavía no tenes <span>productos</span> ni <span>clientes</span>  para empezar a armar tus ventas!!!</p>`
+    } else if (productosAlmacenados.length == 0 && clientesAlmacenados.length != 0){
+        mensaje.innerHTML = `
+        <p>${usuario} todavía no tenes <span>productos</span> para empezar a armar tus ventas!!!</p>`
+    } else if (productosAlmacenados.length != 0 && clientesAlmacenados.length == 0) {
+        mensaje.innerHTML = `
+        <p>${usuario} todavía no tenes <span>clientes</span> para empezar a armar tus ventas!!!</p>`
+    }  else {
+        mensaje.innerHTML = `
+        <p>${usuario} empezá a armar tus ventas!!!`
+    }
+    mensajeContainer.append (mensaje);
+};
 
 function actualizarVentas (){
     ventasAlmacenadas ? ventas = ventasAlmacenadas : ventas = [];
@@ -86,8 +136,17 @@ function crearBotonesEliminarVenta () {
 function eliminarVenta (e){
     const botonVentaEliminar = e.currentTarget.id;
     const ventaAEliminar = ventas.findIndex (venta => venta.id == botonVentaEliminar);
-    ventas.splice(ventaAEliminar, 1);
-    cargarVenta ();
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        text: 'Venta eliminada correctamente',
+        showConfirmButton: false,
+        timer: 1200
+    });
+    setTimeout( ()=>{
+        ventas.splice(ventaAEliminar, 1);
+        cargarVenta ();
+    }, 900);
 }
 
 function cargarVenta (){
@@ -149,101 +208,99 @@ function cargarVenta (){
 
 
 botonSumarProducto.addEventListener ("click", (e) =>{
-    e.preventDefault()
+    e.preventDefault();
     agregarProducto.append(agregarProductoConjunto.cloneNode (true));
 });
 
 botonAceptar.addEventListener ("click", (e) => {
     e.preventDefault();
-    crearVenta();
-    localStorage.setItem ("ventas", JSON.stringify(ventas));
-    location.reload();
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        text: 'Venta creada correctamente',
+        showConfirmButton: false,
+        timer: 1200
+    });
+    setTimeout( () => {
+        crearVenta();
+        localStorage.setItem ("ventas", JSON.stringify(ventas));
+        location.reload();
+    }, 900);
 });
 
+iniciarPagina();
 crearListaClientes();
 crearListaProductos();
 actualizarVentas();
-cargarVenta()
+cargarVenta();
 
-
-
-
-
-
-// function imprimirResumen () {
-
-
-
+window.addEventListener('load', ()=> {
+    let lon
+    let lat
     
 
-//     let agregarMasDeUnProductos = document.querySelectorAll (".mas-productos")
-//     agregarMasDeUnProductos.forEach(i =>{
-//         masDeUnProducto.push(`<p>${i.value} </p>`)
-//     })
-//     let masDeUnProductoImprimir = masDeUnProducto.join("")
 
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition( posicion => {
+            //console.log(posicion.coords.latitude)
+            lon = posicion.coords.longitude
+            lat = posicion.coords.latitude
+            const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&lang=es&units=metric&appid=f9566d601706b4839ebd119175cff709`;
 
-//     const agregarProductoContador = document.querySelectorAll (".contador-cantidad");
-//     agregarProductoContador.forEach(i =>{
-//         masCantidad.push(`<p>${i.value}</p>`)
-//         console.log(i.value)
-//     })
+            fetch(url)
+            .then( response => {return response.json()})
+            .then( data => {
+                for(i = 0; i<5; i++){
+                    document.getElementById("day" + (i+1) + "Min").innerHTML = "Min: " + Number(data.list[i].main.temp_min).toFixed(1)+ "°";
+                    document.getElementById("day" + (i+1) + "Max").innerHTML = "Max: " + Number(data.list[i].main.temp_max).toFixed(2) + "°";
+                    let temperaturaDescripcion = document.getElementById("day" +(i+1) + "-descripcion");
+                    let desc = data.list[i].weather[0].description;
+                    temperaturaDescripcion.textContent = desc.charAt(0).toUpperCase()+desc.slice(1);
+                    let iconoAnimado = document.getElementById("img" + (i+1));
+                    switch (data.list[i].weather[0].main) {
+                        case 'Thunderstorm':
+                            iconoAnimado.src='animated/thunder.svg'
+                            break;
+                        case 'Drizzle':
+                            iconoAnimado.src='animated/rainy-2.svg'
+                            break;
+                        case 'Rain':
+                            iconoAnimado.src='animated/rainy-7.svg'
+                            break;
+                        case 'Snow':
+                            iconoAnimado.src='animated/snowy-6.svg'
+                            break;                        
+                        case 'Clear':
+                            iconoAnimado.src='animated/day.svg'
+                            break;
+                        case 'Atmosphere':
+                            iconoAnimado.src='animated/weather.svg'
+                            break;  
+                        case 'Clouds':
+                            iconoAnimado.src='animated/cloudy-day-1.svg'
+                            break;  
+                        default:
+                            iconoAnimado.src='animated/cloudy-day-1.svg'
+                    }
+                }
+            })
+            .catch(err => alert("Something Went Wrong: Try Checking Your Internet Coneciton"))
+        })
+    }
+})
 
-//     let masCantidadImprimir = masCantidad.join("")
-    
+var d = new Date();
+var weekday = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado",];
 
-//     let subtotalImprimir = document.querySelectorAll (".mas-productos")
-//     subtotalImprimir.forEach(i =>{
-//         a =(productosAlmacenados.find(producto => producto.nombre.includes(i.value)))
-//         console.log(a)
-//     })
+function CheckDay(day){
+    if(day + d.getDay() > 6){
+        return day + d.getDay() - 7;
+    }
+    else{
+        return day + d.getDay();
+    }
+}
 
-//     agregarProductoContador.forEach(i =>{
-//         subtotal.push(`<p>$${i.value * productoAImprimir.precio}</p>`)
-//     })
-
-//     let total = subtotal.reduce((a, b) => a + b);
-
-//     let impresion = document.createElement ("div");
-//     impresion.classList.add ("ventas-resumen");
-//     impresion.innerHTML = `
-//             <div>
-//                 <h3>Cliente</h3>
-//                 <p>${clienteAImprimir.nombreCompleto}</p>
-//             </div>
-//             <div>
-//                 <h3>Dirección</h3>
-//                 <p>${clienteAImprimir.direccion}</p>
-//             </div>
-//             <div>
-//                 <h3>Teléfono</h3>
-//                 <p>${clienteAImprimir.telefono}</p>
-//             </div>
-//             <div>
-//                 <h3>Producto</h3>
-//                 ${masDeUnProductoImprimir}
-//             </div>
-//             <div>
-//                 <h3>Cantidad</h3>
-//                 ${masCantidadImprimir}
-//             </div>
-//             <div>
-//                 <h3>Precio</h3>
-//                 <p>${productoAImprimir.precio}</p>
-//             </div>
-//             <div>
-//                 <h3>Subtotal</h3>
-//                 ${""}
-//             </div>
-//             <div>
-//                 <h3>Total</h3>
-//                 ${""}
-//             </div>
-//     `;
-//             resumenContainer.append (impresion);
-//     }
-
-
-
-
-
+for(i = 0; i<5; i++){
+    document.getElementById("day" + (i+1)).innerHTML = weekday[CheckDay(i)];
+}

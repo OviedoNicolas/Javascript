@@ -9,7 +9,7 @@
 
 body {
     background-color: #ab5663;
-    /* background-image: url(../garabatos-patrones-infantiles-fisuras_95169-848.webp); */
+    background-image: linear-gradient(rgba(180, 180, 180, 0.5), rgba(180, 180, 180, 0.5)), url(../image.png);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -105,25 +105,40 @@ footer {
     width: 350px;
     height: 100%;
     padding: 1.75rem;
+    padding-top: 0;
     gap: 1rem;
     box-shadow: 8px 15px 10px #00000061;
     background: rgba(255,236,122,1);
-    overflow: hidden;
-    position: relative;
+    /* overflow: hidden; */
+    position: relative
 }
 
 .agregar::before{
-    border-color: #ab5663 rgb(253, 222, 43) rgb(253, 222, 43) #ab5663 ;
+    border-color: rgb(255 236 122 / 0%) rgba(255,236,122,1) rgba(255,236,122,1) #ab566300;
     border-style: solid;
     border-width: 0 0 30px 30px;
-    box-shadow: 3px 3px 10px #00000061;
+    /* box-shadow: 6px 5px 7px #00000061; */
     content: "";
     display: block;
     position: absolute;
     left: 0;
-    top: 0;
+    top: -30px;
+    width: 320px;
+}
+
+.agregar::after {
+    border-color: #ab566300 rgb(253, 222, 43) rgb(253, 222, 43) #ab566300;
+    border-style: solid;
+    border-width: 0 0 30px 30px;
+    box-shadow: 4px 5px 5px #00000061;
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: -30px;
     width: 0;
 }
+
 
 
 .ventas-resumen{
@@ -252,5 +267,7 @@ footer {
     );
 }
 
-
+.oculto{
+    display: none;
+}
 

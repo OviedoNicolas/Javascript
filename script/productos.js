@@ -61,14 +61,14 @@ function validarFormularioProductos () {
     if (getProductoNombre.value == "" || getProductoPrecio.value == ""){
         Swal.fire({
             icon: 'error',
-            title: 'Daaaaale...',
-            text: 'No ves q tenes q poner los datos???...bobo!',
+            title: 'Por favor',
+            text: 'completá todos los campos que tengan (*)',
         });
     } else {
         Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Your work has been saved',
+            text: 'Producto creado correctamente',
             showConfirmButton: false,
             timer: 1200
         });
@@ -83,8 +83,17 @@ function validarFormularioProductos () {
 function eliminarProducto (e){
     const botonProductoEliminar = e.currentTarget.id;
     const productoAEliminar = productos.findIndex (producto => producto.id == botonProductoEliminar);
-    productos.splice(productoAEliminar, 1);
-    cargarProducto ();
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        text: 'Producto eliminado correctamente',
+        showConfirmButton: false,
+        timer: 1200
+    });
+    setTimeout( ()=>{
+        productos.splice(productoAEliminar, 1);
+        cargarProducto ();
+    }, 900);
 }
 
 /* Eventos */
