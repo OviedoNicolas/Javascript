@@ -56,21 +56,22 @@ function iniciarPagina (){
     nombreUsuario ? mensajeInicio(nombreUsuario) : getUsuario ();
 }
 
+
 function mensajeInicio (usuario) {
     mensajeContainer.innerHTML = ""
     let mensaje = document.createElement ("p")
     if (productosAlmacenados.length == 0 && clientesAlmacenados.length == 0){
         mensaje.innerHTML = `
-        <p>${usuario} todavía no tenes <span>productos</span> ni <span>clientes</span>  para empezar a armar tus ventas!!!</p>`
+        <p class="mano">${usuario} todavía no tenes <span>productos</span> ni <span>clientes</span>  para empezar a armar tus ventas!!!</p>`
     } else if (productosAlmacenados.length == 0 && clientesAlmacenados.length != 0){
         mensaje.innerHTML = `
-        <p>${usuario} todavía no tenes <span>productos</span> para empezar a armar tus ventas!!!</p>`
+        <p class="mano">${usuario} todavía no tenes <span>productos</span> para empezar a armar tus ventas!!!</p>`
     } else if (productosAlmacenados.length != 0 && clientesAlmacenados.length == 0) {
         mensaje.innerHTML = `
-        <p>${usuario} todavía no tenes <span>clientes</span> para empezar a armar tus ventas!!!</p>`
+        <p class="mano">${usuario} todavía no tenes <span>clientes</span> para empezar a armar tus ventas!!!</p>`
     }  else {
         mensaje.innerHTML = `
-        <p>${usuario} empezá a armar tus ventas!!!`
+        <p class="mano">${usuario} empezá a armar tus ventas!!!`
     }
     mensajeContainer.append (mensaje);
 };
@@ -196,9 +197,9 @@ function cargarVenta (){
         </div>
         <div>
             <h3>Total</h3>
-            ${total.reduce((a, b) => a + b)}
+            <p>${total.reduce((a, b) => a + b)}</p>
         </div>
-        <button class="botonEliminar" id="${venta.id}"><img src="/images/x-circle.svg" alt="boton eliminar"></button>
+        <img src="/images/x-circle.svg" class="boton-principal botonEliminar" id="${venta.id}" alt="boton eliminar">
         `;
         resumenContainer.append (impresion);
     })
@@ -234,73 +235,73 @@ crearListaProductos();
 actualizarVentas();
 cargarVenta();
 
-window.addEventListener('load', ()=> {
-    let lon
-    let lat
+// window.addEventListener('load', ()=> {
+//     let lon
+//     let lat
     
 
 
-    if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition( posicion => {
-            //console.log(posicion.coords.latitude)
-            lon = posicion.coords.longitude
-            lat = posicion.coords.latitude
-            const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&lang=es&units=metric&appid=f9566d601706b4839ebd119175cff709`;
+//     if(navigator.geolocation){
+//         navigator.geolocation.getCurrentPosition( posicion => {
+//             //console.log(posicion.coords.latitude)
+//             lon = posicion.coords.longitude
+//             lat = posicion.coords.latitude
+//             const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&lang=es&units=metric&appid=f9566d601706b4839ebd119175cff709`;
 
-            fetch(url)
-            .then( response => {return response.json()})
-            .then( data => {
-                for(i = 0; i<5; i++){
-                    document.getElementById("day" + (i+1) + "Min").innerHTML = "Min: " + Number(data.list[i].main.temp_min).toFixed(1)+ "°";
-                    document.getElementById("day" + (i+1) + "Max").innerHTML = "Max: " + Number(data.list[i].main.temp_max).toFixed(2) + "°";
-                    let temperaturaDescripcion = document.getElementById("day" +(i+1) + "-descripcion");
-                    let desc = data.list[i].weather[0].description;
-                    temperaturaDescripcion.textContent = desc.charAt(0).toUpperCase()+desc.slice(1);
-                    let iconoAnimado = document.getElementById("img" + (i+1));
-                    switch (data.list[i].weather[0].main) {
-                        case 'Thunderstorm':
-                            iconoAnimado.src='animated/thunder.svg'
-                            break;
-                        case 'Drizzle':
-                            iconoAnimado.src='images/rainy-2.svg'
-                            break;
-                        case 'Rain':
-                            iconoAnimado.src='images/rainy-7.svg'
-                            break;
-                        case 'Snow':
-                            iconoAnimado.src='images/snowy-6.svg'
-                            break;                        
-                        case 'Clear':
-                            iconoAnimado.src='images/day.svg'
-                            break;
-                        case 'Atmosphere':
-                            iconoAnimado.src='images/weather.svg'
-                            break;  
-                        case 'Clouds':
-                            iconoAnimado.src='images/cloudy-day-1.svg'
-                            break;  
-                        default:
-                            iconoAnimado.src='images/cloudy-day-1.svg'
-                    }
-                }
-            })
-            .catch(err => alert("Something Went Wrong: Try Checking Your Internet Coneciton"))
-        })
-    }
-})
+//             fetch(url)
+//             .then( response => {return response.json()})
+//             .then( data => {
+//                 for(i = 0; i<5; i++){
+//                     document.getElementById("day" + (i+1) + "Min").innerHTML = "Min: " + Number(data.list[i].main.temp_min).toFixed(1)+ "°";
+//                     document.getElementById("day" + (i+1) + "Max").innerHTML = "Max: " + Number(data.list[i].main.temp_max).toFixed(2) + "°";
+//                     let temperaturaDescripcion = document.getElementById("day" +(i+1) + "-descripcion");
+//                     let desc = data.list[i].weather[0].description;
+//                     temperaturaDescripcion.textContent = desc.charAt(0).toUpperCase()+desc.slice(1);
+//                     let iconoAnimado = document.getElementById("img" + (i+1));
+//                     switch (data.list[i].weather[0].main) {
+//                         case 'Thunderstorm':
+//                             iconoAnimado.src='animated/thunder.svg'
+//                             break;
+//                         case 'Drizzle':
+//                             iconoAnimado.src='images/rainy-2.svg'
+//                             break;
+//                         case 'Rain':
+//                             iconoAnimado.src='images/rainy-7.svg'
+//                             break;
+//                         case 'Snow':
+//                             iconoAnimado.src='images/snowy-6.svg'
+//                             break;                        
+//                         case 'Clear':
+//                             iconoAnimado.src='images/day.svg'
+//                             break;
+//                         case 'Atmosphere':
+//                             iconoAnimado.src='images/weather.svg'
+//                             break;  
+//                         case 'Clouds':
+//                             iconoAnimado.src='images/cloudy-day-1.svg'
+//                             break;  
+//                         default:
+//                             iconoAnimado.src='images/cloudy-day-1.svg'
+//                     }
+//                 }
+//             })
+//             .catch(err => alert("Something Went Wrong: Try Checking Your Internet Coneciton"))
+//         })
+//     }
+// })
 
-var d = new Date();
-var weekday = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado",];
+// var d = new Date();
+// var weekday = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado",];
 
-function CheckDay(day){
-    if(day + d.getDay() > 6){
-        return day + d.getDay() - 7;
-    }
-    else{
-        return day + d.getDay();
-    }
-}
+// function CheckDay(day){
+//     if(day + d.getDay() > 6){
+//         return day + d.getDay() - 7;
+//     }
+//     else{
+//         return day + d.getDay();
+//     }
+// }
 
-for(i = 0; i<5; i++){
-    document.getElementById("day" + (i+1)).innerHTML = weekday[CheckDay(i)];
-}
+// for(i = 0; i<5; i++){
+//     document.getElementById("day" + (i+1)).innerHTML = weekday[CheckDay(i)];
+// }

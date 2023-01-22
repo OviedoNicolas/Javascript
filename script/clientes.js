@@ -46,15 +46,15 @@ function cargarCliente (){
         let div = document.createElement ("div");
         div.classList.add ("post")
         div.innerHTML = `                
-            <p>${cliente.nombreCompleto}</p>
-            <p>${cliente.direccion}</p>
-            <p>${cliente.telefono}</p>
+            <p class = "mano">${cliente.nombreCompleto}</p>
+            <p class = "mano">${cliente.direccion}</p>
+            <p class = "mano">${cliente.telefono}</p>
             <div class="pin">
                 <div class="shadow"></div>
                 <div class="metal"></div>
                 <div class="bottom-circle"></div>
             </div>
-            <button class="botonEliminar" id="${cliente.id}"><img src="/images/x-circle.svg" alt="boton eliminar"></button>
+            <img src="/images/x-circle.svg" class="botonEliminar boton" id="${cliente.id}" alt="boton eliminar">
         `;
         clientesContainer.append (div);
     })
@@ -68,6 +68,9 @@ function validarFormularioClientes () {
             icon: 'error',
             title: 'Por favor',
             text: 'Completá todos los campos que tengan (*)',
+            customClass:{
+                popup: "post-pop"
+            }
         });
     } else {
         Swal.fire({
@@ -75,7 +78,7 @@ function validarFormularioClientes () {
             icon: 'success',
             text: 'Cliente creado correctamente',
             showConfirmButton: false,
-            timer: 1200
+            timer: 1200,
         });
         setTimeout( () => {
             crearCliente ();

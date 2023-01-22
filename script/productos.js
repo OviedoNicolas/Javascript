@@ -42,14 +42,14 @@ function cargarProducto (){
         let div = document.createElement ("div");
         div.classList.add ("post")
         div.innerHTML = `                
-            <p>${producto.nombre}</p>
-            <p>$${producto.precio}</p>
+            <p class ="mano" >${producto.nombre}</p>
+            <p class ="mano" >$${producto.precio}</p>
             <div class="pin">
                 <div class="shadow"></div>
                 <div class="metal"></div>
                 <div class="bottom-circle"></div>
             </div>
-            <button class="botonEliminar" id="${producto.id}"><img src="/images/x-circle.svg" alt="boton eliminar"></button>
+            <img src="/images/x-circle.svg" class="boton botonEliminar" id="${producto.id}" alt="boton eliminar">
         `;
         productosContainer.append (div);
     })
@@ -62,7 +62,7 @@ function validarFormularioProductos () {
         Swal.fire({
             icon: 'error',
             title: 'Por favor',
-            text: 'completá todos los campos que tengan (*)',
+            text: 'completá todos los campos que tengan (*)'
         });
     } else {
         Swal.fire({
