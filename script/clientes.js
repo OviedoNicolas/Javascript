@@ -30,7 +30,23 @@ function actualizarClientes (){
 }
 
 function crearCliente(){
-    clientes.push (new Cliente(getClienteNombre.value, getClienteApellido.value, getClienteDireccion.value, getClienteTelefono.value, Math.random()))
+    if(clientesAlmacenados.some(cliente => cliente.nombre == getClienteNombre.value && cliente.direccion == getClienteDireccion.value && cliente.apellido == getClienteApellido.value)){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            text: 'Ese cliente ya existe',
+            showConfirmButton: false,
+        });
+    }else{
+        clientes.push (new Cliente(getClienteNombre.value, getClienteApellido.value, getClienteDireccion.value, getClienteTelefono.value, Math.random()))
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            text: 'Cliente creado correctamente',
+            showConfirmButton: false,
+            timer: 1200,
+        });
+    }
 };
 
 function crearBotonesEliminarCliente () {
@@ -73,15 +89,8 @@ function validarFormularioClientes () {
             }
         });
     } else {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            text: 'Cliente creado correctamente',
-            showConfirmButton: false,
-            timer: 1200,
-        });
+        crearCliente ();
         setTimeout( () => {
-            crearCliente ();
             cargarCliente ();
             agregarClienteForm.reset()
         }, 900);

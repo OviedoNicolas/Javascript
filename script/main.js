@@ -5,7 +5,7 @@ const ventasAlmacenadas = JSON.parse(localStorage.getItem("ventas"));
 const productosAlmacenados = JSON.parse(localStorage.getItem("listaProductos"));
 const clientesAlmacenados = JSON.parse(localStorage.getItem("listaClientes"));
 
-/* Elementos traidos desde el html      ``  */ 
+/* Elementos traidos desde el html      ``  */
 const agregarClienteLista = document.querySelector ("#agregar-cliente-lista");
 const agregarProducto = document.querySelector ("#agregar-producto");
 const agregarProductoConjunto = document.querySelector (".agregar-producto-conjunto");
@@ -26,6 +26,8 @@ class Venta {
 };
 
 /*  Funciones    */
+
+// crear nombre de usuario
 function getUsuario () {
     (async () => {
         const { value: nombre } = await Swal.fire({
@@ -52,11 +54,12 @@ function getUsuario () {
     })();
 };
 
+// verificar si hay nombre de usuario
 function iniciarPagina (){
     nombreUsuario ? mensajeInicio(nombreUsuario) : getUsuario ();
 }
 
-
+// mensaje de inicio de pagina
 function mensajeInicio (usuario) {
     mensajeContainer.innerHTML = ""
     let mensaje = document.createElement ("p")
@@ -76,14 +79,41 @@ function mensajeInicio (usuario) {
     mensajeContainer.append (mensaje);
 };
 
+// tranforma ventas en las ventas que haya en el localstorage
 function actualizarVentas (){
     ventasAlmacenadas ? ventas = ventasAlmacenadas : ventas = [];
 };
 
 function crearVenta (){
+    // let clienteRepetido = agregarClienteLista.options[agregarClienteLista.selectedIndex].value;
+    // // let clienteASumar = clientesAlmacenados.find(cliente => cliente.nombreCompleto.includes(clienteRepetido));
+
+    // // let productosRepetidos = [] ;
+    // // let agregarMasDeUnProductos = document.querySelectorAll (".mas-productos")
+    // // agregarMasDeUnProductos.forEach(i =>{
+    // //     productosASumar.push(productosAlmacenados.find(producto => producto.nombre == i.value))
+    // // });
+    // // let cantidad = [];
+    // // const agregarProductoContador = document.querySelectorAll (".contador-cantidad");
+    // // agregarProductoContador.forEach(i =>{
+    // //     cantidad.push(i.value);
+    // // });
+    // // for( n = 0; n < productosASumar.length; n++){
+    // //     productosASumar[n].cantidad = cantidad[n];
+    // // };
+
+
+
+    // if(ventas.some(venta => venta.cliente.nombreCompleto.includes(clienteRepetido))){
+    //     // if(ventas.some(venta => venta.producto.nombre == ))
+    //     console.log(clienteRepetido)
+    //     console.log(ventas)
+    // } else{
+    // }
     ventas.push(new Venta( Math.random(), clienteVenta (),productoVenta ()));
 };
 
+// crear opciones de seleccion cliente
 function crearListaClientes (){
     clientesAlmacenados.forEach(cliente => {
     let option = document.createElement ("option");
@@ -94,6 +124,7 @@ function crearListaClientes (){
 });
 };
 
+// crear opciones de seleccion producto
 function crearListaProductos (){
     productosAlmacenados.forEach(producto => {
         let option = document.createElement ("option");
@@ -111,21 +142,42 @@ function clienteVenta (){
 };
 
 function productoVenta (){
-    let productosASumar = [] ;
-    let agregarMasDeUnProductos = document.querySelectorAll (".mas-productos")
-    agregarMasDeUnProductos.forEach(i =>{
-        productosASumar.push(productosAlmacenados.find(producto => producto.nombre == i.value))
-    });
     let cantidad = [];
     const agregarProductoContador = document.querySelectorAll (".contador-cantidad");
     agregarProductoContador.forEach(i =>{
         cantidad.push(i.value);
     });
+    let productosASumar = [] ;
+    let agregarMasDeUnProductos = document.querySelectorAll (".mas-productos")
+    agregarMasDeUnProductos.forEach( i =>{
+        productosASumar.push(productosAlmacenados.find(producto => producto.nombre == i.value))
+    });
     for( n = 0; n < productosASumar.length; n++){
         productosASumar[n].cantidad = cantidad[n];
     };
+    console.log(cantidad)
+    console.log(productosASumar)
     return productosASumar;
 };
+
+function unificarProductoRepetido (array){
+    let unificar = array.reduce((acumulador,productoActual) =>{
+        let productoRepetido = acumulador.find( producto => producto.id == productoActual.id);
+        if(productoRepetido){
+            return acumulador.map((producto) => {
+                if (producto.id === productoActual.id){
+                    return{
+                        ...producto,
+                        cantidad: producto.cantidad + productoActual.cantidad
+                    }
+                }
+                return producto;
+            });
+        }
+        return [...acumulador, productoActual];
+    }, []);
+        return (unificar);
+}
 
 function crearBotonesEliminarVenta () {
     botonesEliminarVenta = document.querySelectorAll (".botonEliminar");
@@ -225,7 +277,7 @@ botonAceptar.addEventListener ("click", (e) => {
     setTimeout( () => {
         crearVenta();
         localStorage.setItem ("ventas", JSON.stringify(ventas));
-        location.reload();
+        // location.reload();
     }, 900);
 });
 
@@ -238,12 +290,8 @@ cargarVenta();
 // window.addEventListener('load', ()=> {
 //     let lon
 //     let lat
-    
-
-
 //     if(navigator.geolocation){
 //         navigator.geolocation.getCurrentPosition( posicion => {
-//             //console.log(posicion.coords.latitude)
 //             lon = posicion.coords.longitude
 //             lat = posicion.coords.latitude
 //             const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&lang=es&units=metric&appid=f9566d601706b4839ebd119175cff709`;
@@ -252,9 +300,9 @@ cargarVenta();
 //             .then( response => {return response.json()})
 //             .then( data => {
 //                 for(i = 0; i<5; i++){
-//                     document.getElementById("day" + (i+1) + "Min").innerHTML = "Min: " + Number(data.list[i].main.temp_min).toFixed(1)+ "°";
-//                     document.getElementById("day" + (i+1) + "Max").innerHTML = "Max: " + Number(data.list[i].main.temp_max).toFixed(2) + "°";
-//                     let temperaturaDescripcion = document.getElementById("day" +(i+1) + "-descripcion");
+//                     document.getElementById("dia" + (i+1) + "Min").innerHTML = "Min: " + Number(data.list[i].main.temp_min).toFixed(1)+ "°";
+//                     document.getElementById("dia" + (i+1) + "Max").innerHTML = "Max: " + Number(data.list[i].main.temp_max).toFixed(2) + "°";
+//                     let temperaturaDescripcion = document.getElementById("dia" +(i+1) + "-descripcion");
 //                     let desc = data.list[i].weather[0].description;
 //                     temperaturaDescripcion.textContent = desc.charAt(0).toUpperCase()+desc.slice(1);
 //                     let iconoAnimado = document.getElementById("img" + (i+1));
@@ -270,16 +318,16 @@ cargarVenta();
 //                             break;
 //                         case 'Snow':
 //                             iconoAnimado.src='images/snowy-6.svg'
-//                             break;                        
+//                             break;
 //                         case 'Clear':
 //                             iconoAnimado.src='images/day.svg'
 //                             break;
 //                         case 'Atmosphere':
 //                             iconoAnimado.src='images/weather.svg'
-//                             break;  
+//                             break;
 //                         case 'Clouds':
 //                             iconoAnimado.src='images/cloudy-day-1.svg'
-//                             break;  
+//                             break;
 //                         default:
 //                             iconoAnimado.src='images/cloudy-day-1.svg'
 //                     }
@@ -290,18 +338,18 @@ cargarVenta();
 //     }
 // })
 
-// var d = new Date();
-// var weekday = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado",];
+// var nuevoDia = new Date();
+// var semana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado",];
 
-// function CheckDay(day){
-//     if(day + d.getDay() > 6){
-//         return day + d.getDay() - 7;
+// function diaSemana(dia){
+//     if(dia + nuevoDia.getDay() > 6){
+//         return dia + nuevoDia.getDay() - 7;
 //     }
 //     else{
-//         return day + d.getDay();
+//         return dia + nuevoDia.getDay();
 //     }
 // }
 
 // for(i = 0; i<5; i++){
-//     document.getElementById("day" + (i+1)).innerHTML = weekday[CheckDay(i)];
+//     document.getElementById("dia" + (i+1)).innerHTML = semana[diaSemana(i)];
 // }
