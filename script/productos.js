@@ -26,7 +26,24 @@ function actualizarProductos (){
 }
 
 function crearProducto(){
-    productos.push (new Producto(getProductoNombre.value, Number(getProductoPrecio.value), Math.random()))
+    if(productosAlmacenados.some(producto => producto.nombre == getProductoNombre.value)){
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            text: 'Ese producto ya existe',
+            showConfirmButton: false,
+            timer :1500
+        });
+    }else{
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            text: 'Producto creado correctamente',
+            showConfirmButton: false,
+            timer: 1200
+        });
+        productos.push (new Producto(getProductoNombre.value, Number(getProductoPrecio.value), Math.random()))
+    }
 };
 
 function crearBotonesEliminarProducto () {
@@ -65,15 +82,8 @@ function validarFormularioProductos () {
             text: 'completá todos los campos que tengan (*)'
         });
     } else {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            text: 'Producto creado correctamente',
-            showConfirmButton: false,
-            timer: 1200
-        });
+        crearProducto ();            
         setTimeout( ()=>{
-            crearProducto ();            
             cargarProducto ();
             agregarProductoForm.reset()
         }, 900);

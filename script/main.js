@@ -65,16 +65,16 @@ function mensajeInicio (usuario) {
     let mensaje = document.createElement ("p")
     if (productosAlmacenados.length == 0 && clientesAlmacenados.length == 0){
         mensaje.innerHTML = `
-        <p class="mano">${usuario} todavía no tenes <span>productos</span> ni <span>clientes</span>  para empezar a armar tus ventas!!!</p>`
+        <h2 class="mano">${usuario} todavía no tenes <span>productos</span> ni <span>clientes</span>  para empezar a armar tus ventas!!!</h2>`
     } else if (productosAlmacenados.length == 0 && clientesAlmacenados.length != 0){
         mensaje.innerHTML = `
-        <p class="mano">${usuario} todavía no tenes <span>productos</span> para empezar a armar tus ventas!!!</p>`
+        <h2 class="mano">${usuario} todavía no tenes <span>productos</span> para empezar a armar tus ventas!!!</h2>`
     } else if (productosAlmacenados.length != 0 && clientesAlmacenados.length == 0) {
         mensaje.innerHTML = `
-        <p class="mano">${usuario} todavía no tenes <span>clientes</span> para empezar a armar tus ventas!!!</p>`
+        <h2 class="mano">${usuario} todavía no tenes <span>clientes</span> para empezar a armar tus ventas!!!</h2>`
     }  else {
         mensaje.innerHTML = `
-        <p class="mano">${usuario} empezá a armar tus ventas!!!`
+        <h2 class="mano">${usuario} empezá a armar tus ventas!!!</h2>`
     }
     mensajeContainer.append (mensaje);
 };
@@ -85,32 +85,15 @@ function actualizarVentas (){
 };
 
 function crearVenta (){
-    // let clienteRepetido = agregarClienteLista.options[agregarClienteLista.selectedIndex].value;
-    // // let clienteASumar = clientesAlmacenados.find(cliente => cliente.nombreCompleto.includes(clienteRepetido));
-
-    // // let productosRepetidos = [] ;
-    // // let agregarMasDeUnProductos = document.querySelectorAll (".mas-productos")
-    // // agregarMasDeUnProductos.forEach(i =>{
-    // //     productosASumar.push(productosAlmacenados.find(producto => producto.nombre == i.value))
-    // // });
-    // // let cantidad = [];
-    // // const agregarProductoContador = document.querySelectorAll (".contador-cantidad");
-    // // agregarProductoContador.forEach(i =>{
-    // //     cantidad.push(i.value);
-    // // });
-    // // for( n = 0; n < productosASumar.length; n++){
-    // //     productosASumar[n].cantidad = cantidad[n];
-    // // };
-
-
-
-    // if(ventas.some(venta => venta.cliente.nombreCompleto.includes(clienteRepetido))){
-    //     // if(ventas.some(venta => venta.producto.nombre == ))
-    //     console.log(clienteRepetido)
-    //     console.log(ventas)
-    // } else{
-    // }
-    ventas.push(new Venta( Math.random(), clienteVenta (),productoVenta ()));
+    let clienteRepetido = agregarClienteLista.options[agregarClienteLista.selectedIndex].value;
+    if(ventas.some(venta => venta.cliente.nombreCompleto.includes(clienteRepetido))){
+        let ventaActualizar = ventas.find(venta => venta.cliente.nombreCompleto.includes(clienteRepetido))
+        let productosASumar = unificarProductoRepetido(productoVenta())
+        let ventaActualizada = unificarProductoRepetido(ventaActualizar.producto.concat(productosASumar));
+        ventaActualizar.producto = ventaActualizada
+    } else{
+        ventas.push(new Venta( Math.random(), clienteVenta() , unificarProductoRepetido(productoVenta())));
+    };
 };
 
 // crear opciones de seleccion cliente
@@ -145,18 +128,16 @@ function productoVenta (){
     let cantidad = [];
     const agregarProductoContador = document.querySelectorAll (".contador-cantidad");
     agregarProductoContador.forEach(i =>{
-        cantidad.push(i.value);
+        cantidad.push(Number(i.value));
     });
     let productosASumar = [] ;
     let agregarMasDeUnProductos = document.querySelectorAll (".mas-productos")
     agregarMasDeUnProductos.forEach( i =>{
-        productosASumar.push(productosAlmacenados.find(producto => producto.nombre == i.value))
+        productosASumar.push({...productosAlmacenados.find(producto => producto.nombre == i.value)})
     });
     for( n = 0; n < productosASumar.length; n++){
         productosASumar[n].cantidad = cantidad[n];
     };
-    console.log(cantidad)
-    console.log(productosASumar)
     return productosASumar;
 };
 
@@ -169,8 +150,8 @@ function unificarProductoRepetido (array){
                     return{
                         ...producto,
                         cantidad: producto.cantidad + productoActual.cantidad
-                    }
-                }
+                    };
+                };
                 return producto;
             });
         }
@@ -277,7 +258,7 @@ botonAceptar.addEventListener ("click", (e) => {
     setTimeout( () => {
         crearVenta();
         localStorage.setItem ("ventas", JSON.stringify(ventas));
-        // location.reload();
+        location.reload();
     }, 900);
 });
 

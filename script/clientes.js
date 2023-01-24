@@ -36,6 +36,7 @@ function crearCliente(){
             icon: 'error',
             text: 'Ese cliente ya existe',
             showConfirmButton: false,
+            timer : 1500
         });
     }else{
         clientes.push (new Cliente(getClienteNombre.value, getClienteApellido.value, getClienteDireccion.value, getClienteTelefono.value, Math.random()))
