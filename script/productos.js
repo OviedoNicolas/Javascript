@@ -67,7 +67,7 @@ function cargarProducto (){
                 <div class="metal"></div>
                 <div class="bottom-circle"></div>
             </div>
-            <img src="/images/x-circle.svg" class="boton botonEliminar" id="${producto.id}" alt="boton eliminar">
+            <img src="../images/x-circle.svg" class="boton botonEliminar" id="${producto.id}" alt="boton eliminar">
         `;
         productosContainer.append (div);
     })

@@ -235,7 +235,7 @@ function cargarVenta (){
             <h3>Total</h3>
             <p>${total.reduce((a, b) => a + b)}</p>
         </div>
-        <img src="/images/x-circle.svg" class="boton-principal botonEliminar" id="${venta.id}" alt="boton eliminar">
+        <img src="./images/x-circle.svg" class="boton-principal botonEliminar" id="${venta.id}" alt="boton eliminar">
         `;
         resumenContainer.append (impresion);
     })

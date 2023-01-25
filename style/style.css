@@ -487,7 +487,7 @@ body.body-dark .clima-container{
     padding: 10px;
     box-shadow: -3px 5px 5px #00000061; ;
     cursor: pointer;
-    background-image: url(/images/umbrella.svg);
+    background-image: url(../images/umbrella.svg);
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: 70%;
@@ -495,7 +495,7 @@ body.body-dark .clima-container{
 
 body.body-dark .boton-clima{
     background-color: #50207c;
-    background-image: url(/images/umbrella2.svg);
+    background-image: url(../images/umbrella2.svg);
 }
 
 .boton-clima:hover{
