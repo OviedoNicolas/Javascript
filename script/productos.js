@@ -9,7 +9,7 @@ const typed = new Typed(".typed", {
     cursorChar : "|"
 });
 
-/* Elementos traidos desde el html      ``  */ 
+/* Elementos traidos desde el html*/ 
 const agregarProductoForm = document.querySelector ("#agregar-producto");
 const productosContainer = document.querySelector ("#productos-container");
 const getProductoNombre = document.querySelector ("#get-producto");
@@ -17,7 +17,6 @@ const getProductoPrecio = document.querySelector ("#get-precio");
 const getProductoAceptar = document.querySelector ("#producto-aceptar");
 let botonesEliminarCliente = document.querySelectorAll (".botonEliminar");
 const botonSwitch = document.querySelector ("#switch");
-
 
 /* Funciones*/
 
@@ -144,6 +143,8 @@ botonSwitch.addEventListener("click", () =>{
 window.addEventListener('load', ()=> {
     document.body.classList.remove("preload")
 });
+
+/* Flujo del programa*/
 
 actualizarProductos ();
 cargarProducto ();

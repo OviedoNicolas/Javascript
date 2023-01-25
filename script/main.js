@@ -1,3 +1,10 @@
+// // La idea de este proyecto es armar una aplicacion para los vendedores autonomos que hacen la entrega ellos mismos, para ello tiene un seccion "cliente" donde se pueden crear los clientes y una de "productos" con el mismo fin, teniendo un seccion principal donde se puedan armar los pedidos relacionando ambas informaciones.
+
+// Tambien tiene incorporada una api del clima para poder organizar si se hacen las entregas en determinado dia segun el pronóstico.
+
+// Se usaron las librerias de SweetAlert2 y Typed.js.
+
+
 let nombreUsuario = JSON.parse(localStorage.getItem("usuario"));
 let ventas;
 const ventasAlmacenadas = JSON.parse(localStorage.getItem("ventas"));
@@ -6,7 +13,7 @@ const typed = new Typed(".typed", {
     typeSpeed : 40,
     backSpeed : 20,
     backDelay : 200,
-    cursorChar : "|"
+    cursorChar : "|",
 });
 
 const typedB = new Typed(".typedB", {
@@ -16,11 +23,12 @@ const typedB = new Typed(".typedB", {
     backDelay : 200,
     cursorChar : "|",
 });
+
 /* Arrays traidos desde el LocalStorage*/
 const productosAlmacenados = JSON.parse(localStorage.getItem("listaProductos"));
 const clientesAlmacenados = JSON.parse(localStorage.getItem("listaClientes"));
 
-/* Elementos traidos desde el html      ``  */
+/* Elementos traidos desde el html*/
 const agregarClienteLista = document.querySelector ("#agregar-cliente-lista");
 const agregarProducto = document.querySelector ("#agregar-producto");
 const agregarProductoConjunto = document.querySelector (".agregar-producto-conjunto");
@@ -45,7 +53,6 @@ class Venta {
 
 /*  Funciones    */
 
-// crear nombre de usuario
 function getUsuario () {
     (async () => {
         const { value: nombre } = await Swal.fire({
@@ -60,27 +67,25 @@ function getUsuario () {
                     resolve('Tenes que ingresar un nombre')
                     } else {
                     resolve()
-                    }
-                })
+                    };
+                });
             }
         });
         if(nombre){
             Swal.fire(`Hola ${nombre} te damos la bienvenida!!!`)
-        }
+        };
         localStorage.setItem ("usuario", JSON.stringify(nombre));
-        mensajeInicio(nombre)
+        mensajeInicio(nombre);
     })();
 };
 
-// verificar si hay nombre de usuario
 function iniciarPagina (){
     nombreUsuario ? mensajeInicio(nombreUsuario) : getUsuario ();
 }
 
-// mensaje de inicio de pagina
 function mensajeInicio (usuario) {
     mensajeContainer.innerHTML = ""
-    let mensaje = document.createElement ("p")
+    let mensaje = document.createElement ("p");
     if (productosAlmacenados.length == 0 && clientesAlmacenados.length == 0){
         mensaje.innerHTML = `
         <h2 class="mano">${usuario} todavía no tenes <span>productos</span> ni <span>clientes</span>  para empezar a armar tus ventas!!!</h2>`
@@ -97,7 +102,6 @@ function mensajeInicio (usuario) {
     mensajeContainer.append (mensaje);
 };
 
-// tranforma ventas en las ventas que haya en el localstorage
 function actualizarVentas (){
     ventasAlmacenadas ? ventas = ventasAlmacenadas : ventas = [];
 };
@@ -105,16 +109,15 @@ function actualizarVentas (){
 function crearVenta (){
     let clienteRepetido = agregarClienteLista.options[agregarClienteLista.selectedIndex].value;
     if(ventas.some(venta => venta.cliente.nombreCompleto.includes(clienteRepetido))){
-        let ventaActualizar = ventas.find(venta => venta.cliente.nombreCompleto.includes(clienteRepetido))
-        let productosASumar = unificarProductoRepetido(productoVenta())
+        let ventaActualizar = ventas.find(venta => venta.cliente.nombreCompleto.includes(clienteRepetido));
+        let productosASumar = unificarProductoRepetido(productoVenta());
         let ventaActualizada = unificarProductoRepetido(ventaActualizar.producto.concat(productosASumar));
-        ventaActualizar.producto = ventaActualizada
+        ventaActualizar.producto = ventaActualizada;
     } else{
-        ventas.push(new Venta( Math.random(), clienteVenta() , unificarProductoRepetido(productoVenta())));
+        ventas.push(new Venta( Math.random(), clienteVenta(), unificarProductoRepetido(productoVenta())));
     };
 };
 
-// crear opciones de seleccion cliente
 function crearListaClientes (){
     clientesAlmacenados.forEach(cliente => {
     let option = document.createElement ("option");
@@ -125,7 +128,6 @@ function crearListaClientes (){
 });
 };
 
-// crear opciones de seleccion producto
 function crearListaProductos (){
     productosAlmacenados.forEach(producto => {
         let option = document.createElement ("option");
@@ -151,7 +153,7 @@ function productoVenta (){
     let productosASumar = [] ;
     let agregarMasDeUnProductos = document.querySelectorAll (".mas-productos")
     agregarMasDeUnProductos.forEach( i =>{
-        productosASumar.push({...productosAlmacenados.find(producto => producto.nombre == i.value)})
+        productosASumar.push({...productosAlmacenados.find(producto => producto.nombre == i.value)});
     });
     for( n = 0; n < productosASumar.length; n++){
         productosASumar[n].cantidad = cantidad[n];
@@ -302,16 +304,16 @@ botonSwitch.addEventListener("click", () =>{
 
 botonClima.addEventListener("click", () =>{
     climaContainer.classList.toggle("active");
-})
+});
 
 window.addEventListener('load', ()=> {
-    document.body.classList.remove("preload")
-    let lon
-    let lat
+    document.body.classList.remove("preload");
+    let lon;
+    let lat;
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition( posicion => {
-            lon = posicion.coords.longitude
-            lat = posicion.coords.latitude
+            lon = posicion.coords.longitude;
+            lat = posicion.coords.latitude;
             const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&lang=es&units=metric&appid=f9566d601706b4839ebd119175cff709`;
 
             fetch(url)
@@ -353,14 +355,14 @@ window.addEventListener('load', ()=> {
             })
             .catch(err => {
                 climaContainer.classList.add("oculto");
-                botonClima.classList.add("oculto")
+                botonClima.classList.add("oculto");
             })
         })
     }
 })
 
-var nuevoDia = new Date();
-var semana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado",];
+let nuevoDia = new Date();
+let semana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado",];
 
 function diaSemana(dia){
     if(dia + nuevoDia.getDay() > 6){
@@ -374,6 +376,8 @@ function diaSemana(dia){
 for(i = 0; i<5; i++){
     document.getElementById("dia" + (i+1)).innerHTML = semana[diaSemana(i)];
 }
+
+/* Flujo del programa*/
 
 iniciarPagina();
 crearListaClientes();

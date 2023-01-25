@@ -9,7 +9,7 @@ const typed = new Typed(".typed", {
     cursorChar : "|"
 });
 
-/* Elementos traidos desde el html      ``  */ 
+/* Elementos traidos desde el html*/ 
 const agregarClienteForm = document.querySelector ("#agregar-cliente");
 const clientesContainer = document.querySelector ("#clientes-container");
 const getClienteNombre = document.querySelector ("#get-nombre");
@@ -131,7 +131,6 @@ function modo (){
         botonSwitch.classList.remove ("switch-dark");
     };
 };
-
 
 /* Eventos */
 
