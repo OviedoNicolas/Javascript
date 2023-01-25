@@ -88,13 +88,13 @@ function mensajeInicio (usuario) {
     let mensaje = document.createElement ("p");
     if (productosAlmacenados.length == 0 && clientesAlmacenados.length == 0){
         mensaje.innerHTML = `
-        <h2 class="mano">${usuario} todavía no tenes <span>productos</span> ni <span>clientes</span>  para empezar a armar tus ventas!!!</h2>`
+        <h2 class="mano">${usuario} todavía no tenes <a href="../section/.productos.html"><span>productos</span></a> ni <a href="../section/clientes.html"><span>clientes</span></a>  para empezar a armar tus ventas!!!</h2>`
     } else if (productosAlmacenados.length == 0 && clientesAlmacenados.length != 0){
         mensaje.innerHTML = `
-        <h2 class="mano">${usuario} todavía no tenes <span>productos</span> para empezar a armar tus ventas!!!</h2>`
+        <h2 class="mano">${usuario} todavía no tenes <a href="../section/.productos.html"><span>productos</span></a> para empezar a armar tus ventas!!!</h2>`
     } else if (productosAlmacenados.length != 0 && clientesAlmacenados.length == 0) {
         mensaje.innerHTML = `
-        <h2 class="mano">${usuario} todavía no tenes <span>clientes</span> para empezar a armar tus ventas!!!</h2>`
+        <h2 class="mano">${usuario} todavía no tenes <a href="../section/clientes.html"><span>clientes</span></a> para empezar a armar tus ventas!!!</h2>`
     }  else {
         mensaje.innerHTML = `
         <h2 class="mano">${usuario} empezá a armar tus ventas!!!</h2>`
