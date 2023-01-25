@@ -682,20 +682,31 @@ img{
     display: none;
 }
 
+span{
+    text-decoration: underline;
+}
 
+.typed{
+    text-decoration: none;
+    font-family: "Space Mono", sans-serif; 
+    display: inline-block;
+}
 
+.typed-cursor{
+    font-family: "Space Mono", sans-serif;
+    text-decoration: none;
+}
 
+.typedB{
+    text-decoration: none;
+    font-family: "Space Mono", sans-serif; 
+    display: inline-block;
+}
 
-
-
-
-
-
-
-
-
-
-
+.typedB-cursor{
+    font-family: "Space Mono", sans-serif;
+    text-decoration: none;
+}
 
 footer {
     width: 1360px;
@@ -705,6 +716,12 @@ footer {
     border-bottom-right-radius: 1rem;
     background: #ffec7a;
     flex-grow: 1;
-    max-height: 20px;
+    max-height: 40px;
     flex-grow: 1;
+    text-align: center;
+    padding: 10px;
+}
+
+body.body-dark footer{
+    background: #50207c;
 }

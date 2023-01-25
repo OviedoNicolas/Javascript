@@ -1,6 +1,13 @@
 /* Variables */
 let clientes;
 const clientesAlmacenados = JSON.parse(localStorage.getItem("listaClientes"));
+const typed = new Typed(".typed", {
+    strings: ["<h2>Nuevo Cliente</h2>"],
+    typeSpeed : 40,
+    backSpeed : 20,
+    backDelay : 200,
+    cursorChar : "|"
+});
 
 /* Elementos traidos desde el html      ``  */ 
 const agregarClienteForm = document.querySelector ("#agregar-cliente");

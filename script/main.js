@@ -1,6 +1,21 @@
 let nombreUsuario = JSON.parse(localStorage.getItem("usuario"));
 let ventas;
 const ventasAlmacenadas = JSON.parse(localStorage.getItem("ventas"));
+const typed = new Typed(".typed", {
+    strings: ["Ajrej" , "Agregar Cliente"],
+    typeSpeed : 40,
+    backSpeed : 20,
+    backDelay : 200,
+    cursorChar : "|"
+});
+
+const typedB = new Typed(".typedB", {
+    strings: ["Agregar" , "Agregar Podu",  "Agregar Producto"],
+    typeSpeed : 40,
+    backSpeed : 20,
+    backDelay : 200,
+    cursorChar : "|",
+});
 /* Arrays traidos desde el LocalStorage*/
 const productosAlmacenados = JSON.parse(localStorage.getItem("listaProductos"));
 const clientesAlmacenados = JSON.parse(localStorage.getItem("listaClientes"));
@@ -366,9 +381,3 @@ crearListaProductos();
 actualizarVentas();
 cargarVenta();
 modo();
-
-
-const typed = new Typed(".typed", {
-    strings: ["<h2>Ajrej</h2>" , "<h2>Agregar Cliente</h2>"],
-
-});

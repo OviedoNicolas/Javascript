@@ -1,6 +1,13 @@
 /* Variables */
 let productos;
 const productosAlmacenados = JSON.parse(localStorage.getItem("listaProductos"));
+const typed = new Typed(".typed", {
+    strings: ["Nuevo Producto"],
+    typeSpeed : 40,
+    backSpeed : 20,
+    backDelay : 200,
+    cursorChar : "|"
+});
 
 /* Elementos traidos desde el html      ``  */ 
 const agregarProductoForm = document.querySelector ("#agregar-producto");
