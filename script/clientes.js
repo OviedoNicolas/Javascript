@@ -11,6 +11,7 @@ const getClienteDireccion = document.querySelector ("#get-direccion");
 const getClienteTelefono = document.querySelector ("#get-telefono");
 const getClienteAceptar = document.querySelector ("#cliente-aceptar");
 let botonesEliminarCliente = document.querySelectorAll (".botonEliminar");
+const botonSwitch = document.querySelector ("#switch");
 
 /* Funciones*/
 
@@ -112,7 +113,18 @@ function eliminarCliente (e){
         clientes.splice(clienteAEliminar, 1);
         cargarCliente ();
     }, 900);
-}
+};
+
+function modo (){
+    if(JSON.parse(localStorage.getItem("modo-oscuro")) === true){
+        document.body.classList.add ("body-dark");
+        botonSwitch.classList.add ("switch-dark");
+    }else{
+        document.body.classList.remove ("body-dark");
+        botonSwitch.classList.remove ("switch-dark");
+    };
+};
+
 
 /* Eventos */
 
@@ -121,7 +133,22 @@ getClienteAceptar.addEventListener ("click", (e) => {
     validarFormularioClientes ();
 });
 
+botonSwitch.addEventListener("click", () =>{
+    document.body.classList.toggle ("body-dark");
+    botonSwitch.classList.toggle ("switch-dark");
+    if(document.body.classList.contains("body-dark")){
+        localStorage.setItem("modo-oscuro", JSON.stringify(true))
+    }else{
+        localStorage.setItem("modo-oscuro", JSON.stringify(false))
+    }
+});
+
+window.addEventListener('load', ()=> {
+    document.body.classList.remove("preload")
+});
+
 /* Flujo del programa*/
 
 actualizarClientes();
 cargarCliente();
+modo();

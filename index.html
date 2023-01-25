@@ -7,7 +7,7 @@
     <title>OrgWork</title>
     <link rel="stylesheet" href="./style/style.css">
 </head>
-<body>
+<body class="preload">
     <header>
         <h1>Logo</h1>
         <nav>
@@ -21,13 +21,23 @@
                 <li class="navbar-link">
                     <a href="./Section/clientes.html">Clientes</a>
                 </li>
+                <li>
+                    <button class="switch" id="switch">
+                        <span class="icon">
+                            <img class="mode" src="./images/sol.svg" alt="icono de sol">
+                        </span>
+                        <span class="icon">
+                            <img class="mode" src="./images/luna-es.svg" alt="icono de luna">
+                        </span>
+                    </button>
+                </li>
             </ul>
         </nav>
     </header>
     <main>
         <section class="agregar-container">
             <form class="agregar agregar-cliente">
-                <h2>Agregar Cliente</h2>
+                <h2><span class="typed"></span>Cliente</h2>
                 <select id="agregar-cliente-lista">
                 </select>
             </form>
@@ -47,55 +57,69 @@
             </form>
         </section>
         <section class="cuaderno">
+            <button class="boton-clima" id="clima-boton">
+                <span class="paper-clip"></span>
+            </button>
             <div id="mensaje">
             </div>
             <div class="ventas-resumen-container" id="ventas-impresion">
             </div>
         </section>
         <section class="clima-container" id="clima-container">
-                <div id="iconsContainer">    
-                    <div class = "icons">
-                        <p class="dia" id="dia1"></p>
-                        <h4 class="descripcion" id="dia1-descripcion"></h4>
-                        <div class="image"><img class="imgClass" id="img1"></div>
-                        <p class="minValues" id="dia1Min">Cargando...</p>
-                        <p class="maxValues" id="dia1Max">Cargando...</p>
+            <div id="iconsContainer">    
+                <div class = "icons">
+                    <p class="dia maquina" id="dia1"></p>
+                    <h4 class="descripcion" id="dia1-descripcion"></h4>
+                    <div class="image">
+                        <img class="imgClass" id="img1">
                     </div>
-                    <div class = "icons">
-                        <p class="dia" id="dia2"></p>
-                        <h4 class="descripcion" id="dia2-descripcion"></h4>
-                        <div class="image"><img class="imgClass" id="img2"></div>
-                        <p class="minValues" id="dia2Min">Cargando...</p>
-                        <p class="maxValues" id="dia2Max">Cargando...</p>
-                    </div>
-                    <div class = "icons">
-                        <p class="dia" id="dia3"></p>
-                        <h4 class="descripcion" id="dia3-descripcion"></h4>
-                        <div class="image"><img class="imgClass" id="img3"></div>
-                        <p class="minValues" id="dia3Min">Cargando...</p>
-                        <p class="maxValues" id="dia3Max">Cargando...</p>
-                    </div>
-                    <div class = "icons">
-                        <p class="dia" id="dia4"></p>
-                        <h4 class="descripcion" id="dia4-descripcion"></h4>
-                        <div class="image"><img class="imgClass" id="img4"></div>
-                        <p class="minValues" id="dia4Min">Cargando...</p>
-                        <p class="maxValues" id="dia4Max">Cargando...</p>
-                    </div>
-                    <div class = "icons">
-                        <p class="dia" id="dia5"></p>
-                        <h4 class="descripcion" id="dia5-descripcion"></h4>
-                        <div class="image"><img class="imgClass" id="img5"></div>
-                        <p class="minValues" id="dia5Min">Cargando...</p>
-                        <p class="maxValues" id="dia5Max">Cargando...</p>
-                    </div>
+                    <p class="minValues" id="dia1Min"></p>
+                    <p class="maxValues" id="dia1Max"></p>
                 </div>
+                <div class = "icons">
+                    <p class="dia maquina" id="dia2"></p>
+                    <h4 class="descripcion" id="dia2-descripcion"></h4>
+                    <div class="image">
+                        <img class="imgClass" id="img2">
+                    </div>
+                    <p class="minValues" id="dia2Min"></p>
+                    <p class="maxValues" id="dia2Max"></p>
+                </div>
+                <div class = "icons">
+                    <p class="dia maquina" id="dia3"></p>
+                    <h4 class="descripcion" id="dia3-descripcion"></h4>
+                    <div class="image">
+                        <img class="imgClass" id="img3">
+                    </div>
+                    <p class="minValues" id="dia3Min"></p>
+                    <p class="maxValues" id="dia3Max"></p>
+                </div>
+                <div class = "icons">
+                    <p class="dia maquina" id="dia4"></p>
+                    <h4 class="descripcion" id="dia4-descripcion"></h4>
+                    <div class="image">
+                        <img class="imgClass" id="img4">
+                    </div>
+                    <p class="minValues" id="dia4Min"></p>
+                    <p class="maxValues" id="dia4Max"></p>
+                </div>
+                <div class = "icons">
+                    <p class="dia maquina" id="dia5"></p>
+                    <h4 class="descripcion" id="dia5-descripcion"></h4>
+                    <div class="image">
+                        <img class="imgClass" id="img5">
+                    </div>
+                    <p class="minValues" id="dia5Min"></p>
+                    <p class="maxValues" id="dia5Max"></p>
+                </div>
+            </div>
         </section>
     </main>
     <footer>
         <p>©Nicolas Oviedo 2023</p>
     </footer>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="./script/main.js"></script>
 </body>
 </html>

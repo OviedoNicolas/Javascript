@@ -16,6 +16,9 @@ const resumenContainer = document.querySelector ("#ventas-impresion");
 const resumenProducto = document.querySelector (".ventas-resumen-productos");
 const resumenCliente = document.querySelector (".ventas-resumen-cliente");
 const mensajeContainer = document.querySelector ("#mensaje");
+const botonSwitch = document.querySelector ("#switch");
+const climaContainer = document.querySelector ("#clima-container")
+const botonClima = document.querySelector ("#clima-boton");
 
 class Venta {
     constructor (id, cliente, producto){
@@ -240,6 +243,16 @@ function cargarVenta (){
     crearBotonesEliminarVenta();
 };
 
+function modo (){
+    if(JSON.parse(localStorage.getItem("modo-oscuro")) === true){
+        document.body.classList.add ("body-dark");
+        botonSwitch.classList.add ("switch-dark");
+    }else{
+        document.body.classList.remove ("body-dark");
+        botonSwitch.classList.remove ("switch-dark");
+    };
+};
+
 
 botonSumarProducto.addEventListener ("click", (e) =>{
     e.preventDefault();
@@ -253,7 +266,7 @@ botonAceptar.addEventListener ("click", (e) => {
         icon: 'success',
         text: 'Venta creada correctamente',
         showConfirmButton: false,
-        timer: 1200
+        timer: 1300
     });
     setTimeout( () => {
         crearVenta();
@@ -262,75 +275,100 @@ botonAceptar.addEventListener ("click", (e) => {
     }, 900);
 });
 
+botonSwitch.addEventListener("click", () =>{
+    document.body.classList.toggle ("body-dark");
+    botonSwitch.classList.toggle ("switch-dark");
+    if(document.body.classList.contains("body-dark")){
+        localStorage.setItem("modo-oscuro", JSON.stringify(true))
+    }else{
+        localStorage.setItem("modo-oscuro", JSON.stringify(false))
+    }
+});
+
+botonClima.addEventListener("click", () =>{
+    climaContainer.classList.toggle("active");
+})
+
+window.addEventListener('load', ()=> {
+    document.body.classList.remove("preload")
+    let lon
+    let lat
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition( posicion => {
+            lon = posicion.coords.longitude
+            lat = posicion.coords.latitude
+            const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&lang=es&units=metric&appid=f9566d601706b4839ebd119175cff709`;
+
+            fetch(url)
+            .then( response => {return response.json()})
+            .then( data => {
+                for(i = 0; i<5; i++){
+                    document.getElementById("dia" + (i+1) + "Min").innerHTML = "Min: " + Number(data.list[i].main.temp_min).toFixed(1)+ "°";
+                    document.getElementById("dia" + (i+1) + "Max").innerHTML = "Max: " + Number(data.list[i].main.temp_max).toFixed(2) + "°";
+                    let temperaturaDescripcion = document.getElementById("dia" +(i+1) + "-descripcion");
+                    let desc = data.list[i].weather[0].description;
+                    temperaturaDescripcion.textContent = desc.charAt(0).toUpperCase()+desc.slice(1);
+                    let iconoAnimado = document.getElementById("img" + (i+1));
+                    switch (data.list[i].weather[0].main) {
+                        case 'Thunderstorm':
+                            iconoAnimado.src='animated/thunder.svg'
+                            break;
+                        case 'Drizzle':
+                            iconoAnimado.src='images/rainy-2.svg'
+                            break;
+                        case 'Rain':
+                            iconoAnimado.src='images/rainy-7.svg'
+                            break;
+                        case 'Snow':
+                            iconoAnimado.src='images/snowy-6.svg'
+                            break;
+                        case 'Clear':
+                            iconoAnimado.src='images/day.svg'
+                            break;
+                        case 'Atmosphere':
+                            iconoAnimado.src='images/weather.svg'
+                            break;
+                        case 'Clouds':
+                            iconoAnimado.src='images/cloudy-day-1.svg'
+                            break;
+                        default:
+                            iconoAnimado.src='images/cloudy-day-1.svg'
+                    }
+                }
+            })
+            .catch(err => {
+                climaContainer.classList.add("oculto");
+                botonClima.classList.add("oculto")
+            })
+        })
+    }
+})
+
+var nuevoDia = new Date();
+var semana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado",];
+
+function diaSemana(dia){
+    if(dia + nuevoDia.getDay() > 6){
+        return dia + nuevoDia.getDay() - 7;
+    }
+    else{
+        return dia + nuevoDia.getDay();
+    }
+}
+
+for(i = 0; i<5; i++){
+    document.getElementById("dia" + (i+1)).innerHTML = semana[diaSemana(i)];
+}
+
 iniciarPagina();
 crearListaClientes();
 crearListaProductos();
 actualizarVentas();
 cargarVenta();
+modo();
 
-// window.addEventListener('load', ()=> {
-//     let lon
-//     let lat
-//     if(navigator.geolocation){
-//         navigator.geolocation.getCurrentPosition( posicion => {
-//             lon = posicion.coords.longitude
-//             lat = posicion.coords.latitude
-//             const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&lang=es&units=metric&appid=f9566d601706b4839ebd119175cff709`;
 
-//             fetch(url)
-//             .then( response => {return response.json()})
-//             .then( data => {
-//                 for(i = 0; i<5; i++){
-//                     document.getElementById("dia" + (i+1) + "Min").innerHTML = "Min: " + Number(data.list[i].main.temp_min).toFixed(1)+ "°";
-//                     document.getElementById("dia" + (i+1) + "Max").innerHTML = "Max: " + Number(data.list[i].main.temp_max).toFixed(2) + "°";
-//                     let temperaturaDescripcion = document.getElementById("dia" +(i+1) + "-descripcion");
-//                     let desc = data.list[i].weather[0].description;
-//                     temperaturaDescripcion.textContent = desc.charAt(0).toUpperCase()+desc.slice(1);
-//                     let iconoAnimado = document.getElementById("img" + (i+1));
-//                     switch (data.list[i].weather[0].main) {
-//                         case 'Thunderstorm':
-//                             iconoAnimado.src='animated/thunder.svg'
-//                             break;
-//                         case 'Drizzle':
-//                             iconoAnimado.src='images/rainy-2.svg'
-//                             break;
-//                         case 'Rain':
-//                             iconoAnimado.src='images/rainy-7.svg'
-//                             break;
-//                         case 'Snow':
-//                             iconoAnimado.src='images/snowy-6.svg'
-//                             break;
-//                         case 'Clear':
-//                             iconoAnimado.src='images/day.svg'
-//                             break;
-//                         case 'Atmosphere':
-//                             iconoAnimado.src='images/weather.svg'
-//                             break;
-//                         case 'Clouds':
-//                             iconoAnimado.src='images/cloudy-day-1.svg'
-//                             break;
-//                         default:
-//                             iconoAnimado.src='images/cloudy-day-1.svg'
-//                     }
-//                 }
-//             })
-//             .catch(err => alert("Something Went Wrong: Try Checking Your Internet Coneciton"))
-//         })
-//     }
-// })
+const typed = new Typed(".typed", {
+    strings: ["<h2>Ajrej</h2>" , "<h2>Agregar Cliente</h2>"],
 
-// var nuevoDia = new Date();
-// var semana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado",];
-
-// function diaSemana(dia){
-//     if(dia + nuevoDia.getDay() > 6){
-//         return dia + nuevoDia.getDay() - 7;
-//     }
-//     else{
-//         return dia + nuevoDia.getDay();
-//     }
-// }
-
-// for(i = 0; i<5; i++){
-//     document.getElementById("dia" + (i+1)).innerHTML = semana[diaSemana(i)];
-// }
+});
